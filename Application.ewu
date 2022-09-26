@@ -1,0 +1,1697 @@
+﻿$version 11.00
+
+// This is the root component of the entire GUI application.
+$rect <20,20,220,60>
+$output false
+class Application : Core::Root
+{
+  $rect <490,60,690,100>
+  inherited property Bounds = <0,0,480,272>;
+
+  // To do:
+  // 
+  // - Adjust the visible size of your application (the thick blue border). It should \
+  // correspond to the size of your target display.
+  // 
+  // - The simplest way to compose the appearance of the application is to use the \
+  // 'Views' and 'Widgets' from the Gallery.
+  // 
+  // - To react to touch or keyboard events use the templates from the Gallery folder \
+  // 'Event Handlers'.
+  // 
+  // - To perform transitions (animations) use the templates from the Gallery folder \
+  // 'Effects'.
+  // 
+  // - To store values use the 'Variable', 'Array' and 'Property' templates available \
+  // in the Gallery folder 'Chora'.
+  // 
+  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
+  // in the Gallery folder 'Chora'.
+  note legend Note1
+  {
+    attr Bounds = <0,310,780,540>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::StartDialog StartDialog
+  {
+    preset Bounds = <0,1,480,273>;
+    preset Visible = true;
+  }
+
+  $rect <20,20,160,60>
+  object Core::Outline Outline
+  {
+    preset Bounds = <0,0,480,272>;
+    preset SlideHandler = SlideTouchHandler;
+    preset Formation = Core::Formation.LeftToRight;
+    preset Visible = true;
+  }
+
+  $rect <20,20,160,60>
+  object Application::TempoDialog TempoDialog
+  {
+    preset StackingPriority = 2;
+    preset Bounds = <0,0,480,272>;
+    preset Embedded = true;
+  }
+
+  $rect <20,20,160,60>
+  object Application::MetronomDialog MetronomDialog
+  {
+    preset StackingPriority = 1;
+    preset Bounds = <0,0,480,272>;
+    preset Embedded = true;
+  }
+
+  $rect <20,20,160,60>
+  object Application::BeatDialog BeatDialog
+  {
+    preset StackingPriority = 2;
+    preset Bounds = <0,0,480,272>;
+    preset Embedded = true;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SlideTouchHandler SlideTouchHandler
+  {
+    preset Bounds = <0,0,480,272>;
+    preset SnapLast = <480,0>;
+    preset SnapNext = <480,0>;
+    preset SnapFirst = <480,0>;
+    preset SlideVert = false;
+    preset RubberBandEffectElasticity = 100.0;
+    preset RubberBandEffectDuration = 100;
+    preset RetargetDelay = 300;
+    preset RetargetCondition = Core::RetargetReason[LongPress];
+    preset Friction = 1.0;
+    preset Embedded = false;
+  }
+}
+
+$rect <20,80,220,120>
+$output false
+class TempoDialog : Core::Group
+{
+  $rect <500,10,700,50>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::MetronomeBackground;
+    preset Opacity = 255;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <174,16,291,61>;
+    preset String = "TEMPO";
+    preset Font = Application::FontBodoni;
+    preset Color = #2864FFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line
+  {
+    preset Point2 = <360,65>;
+    preset Point1 = <122,65>;
+    preset Color = #04208BFF;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::ValueDisplay ValueDisplay
+  {
+    preset Bounds = <91,111,291,161>;
+    preset Outlet = ^Application::Device.Tempo;
+    preset Unit = "";
+    preset Precision = 0;
+    preset CurrentBias = 0.0;
+    preset Appearance = WidgetSet::ValueDisplay_Large;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::RotaryKnob RotaryKnob
+  {
+    preset Bounds = <154,65,314,225>;
+    preset Outlet = ^Application::Device.Tempo;
+    preset StepSize = 5;
+    preset MaxValue = 150;
+    preset MinValue = 30;
+    preset Appearance = Application::RotaryMinConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::HorizontalSlider HorizontalSlider
+  {
+    preset Bounds = <140,215,340,265>;
+    preset Outlet = ^Application::Device.Tempo;
+    preset StepSize = 5;
+    preset MaxValue = 150;
+    preset MinValue = 30;
+    preset Appearance = Application::MyHorizontalSliderConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <387,207,462,257>;
+    preset Opacity = 250;
+    preset OnRelease = onCheck;
+    preset OnPress = null;
+    preset Icon = Application::CheckIcon;
+    preset Label = "";
+    preset Appearance = Application::NavigationButton;
+  }
+
+  $rect <490,70,690,110>
+  slot onCheck
+  {
+    var Core::Group metronomDialog = new Application::MetronomDialog;
+
+      // Present the Dialog now
+    PresentDialog( metronomDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+  }
+}
+
+$rect <330,30,530,70>
+$output false
+resource Resources::Bitmap MetronomeBackground
+{
+  attr bitmapfile FileName = .\Res\wave-lines-white-vector-background.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <880,29,1080,69>
+$output false
+resource Resources::Font FontBodoni
+{
+  attr fontname FontName = Bodoni MT;
+  attr fontheight Height = 32;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = true;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <334,106,534,146>
+$output false
+resource Resources::Bitmap CheckIcon
+{
+  attr bitmapfile FileName = .\Res\Thumb - Copy.png;
+  attr bitmapformat Format = Alpha8;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <20,120,220,160>
+$output false
+class BeatDialog : Core::Group
+{
+  $rect <510,0,710,40>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,360,210,400>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,310,210,350>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::MetronomeBackground;
+    preset Opacity = 255;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <190,24,290,54>;
+    preset String = "BEAT";
+    preset Font = Application::FontBodoni;
+    preset Color = #2864FFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line
+  {
+    preset Point2 = <360,65>;
+    preset Point1 = <122,65>;
+    preset Color = #04208BFF;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::ValueDisplay ValueDisplay
+  {
+    preset Bounds = <97,127,297,159>;
+    preset Outlet = ^Application::Device.Beat;
+    preset Unit = "";
+    preset Precision = 0;
+    preset Appearance = WidgetSet::ValueDisplay_Medium;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::VerticalSlider VerticalSlider
+  {
+    preset Bounds = <97,74,147,243>;
+    preset Outlet = ^Application::Device.Beat;
+    preset MaxValue = 8;
+    preset MinValue = 2;
+    preset Appearance = Application::MyVerticalSliderConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::RotaryKnob RotaryKnob
+  {
+    preset Bounds = <190,63,350,223>;
+    preset Outlet = ^Application::Device.Beat;
+    preset MaxValue = 8;
+    preset MinValue = 2;
+    preset Appearance = Application::RotaryMinConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <384,207,459,257>;
+    preset Opacity = 250;
+    preset OnRelease = onCheck;
+    preset OnPress = null;
+    preset Icon = Application::CheckIcon;
+    preset Label = "";
+    preset Appearance = Application::NavigationButton;
+  }
+
+  $rect <510,50,710,90>
+  slot onCheck
+  {
+    var Core::Group metronomDialog = new Application::MetronomDialog;
+
+      // Present the Dialog now
+    PresentDialog( metronomDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+  }
+}
+
+$rect <20,160,220,200>
+$output false
+class MetronomDialog : Core::Group
+{
+  $rect <500,10,700,50>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::MetronomeBackground;
+    preset Opacity = 250;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <205,86,275,156>;
+    preset Visible = true;
+    preset OnActivate = onStartPress;
+    preset Icon = Application::PlayIcon;
+    preset Label = "Caption";
+    preset Appearance = Application::PushButtonConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::ValueDisplay TempoValue
+  {
+    preset Bounds = <11,97,128,129>;
+    preset Outlet = ^Application::Device.Tempo;
+    preset Unit = "";
+    preset Precision = 0;
+    preset Appearance = WidgetSet::ValueDisplay_Medium;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::ValueDisplay BeatValue
+  {
+    preset Bounds = <291,97,413,129>;
+    preset Outlet = ^Application::Device.Beat;
+    preset Unit = "";
+    preset Precision = 0;
+    preset Appearance = WidgetSet::ValueDisplay_Medium;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::RotaryKnob TempoRotaryKnob
+  {
+    preset Bounds = <7,25,167,185>;
+    preset Appearance = Application::RotaryMaxConfig;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::RotaryKnob BeatRotaryKnob
+  {
+    preset Bounds = <311,24,471,184>;
+    preset Appearance = Application::RotaryMinConfig;
+  }
+
+  $rect <510,60,710,100>
+  slot onStartPress
+  {
+    trace "Metronome Start";
+
+      // Assume, this is a new Dialog you want to present
+    var Core::Group startDialog = new Application::StartDialog;
+
+      // Present the Dialog now
+    PresentDialog( startDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton ButtonTempo
+  {
+    preset Bounds = <15,195,165,245>;
+    preset OnRelease = onTempoPress;
+    preset OnPress = null;
+    preset Label = "TEMPO";
+    preset Appearance = Application::NavigationButton;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton ButtonBeat
+  {
+    preset Bounds = <321,195,471,245>;
+    preset OnRelease = onBeatPress;
+    preset OnPress = null;
+    preset Label = "BEAT";
+    preset Appearance = Application::NavigationButton;
+  }
+
+  $rect <490,120,690,160>
+  slot onTempoPress
+  {
+    var Core::Group tempoDialog = new Application::TempoDialog;
+
+      // Present the Dialog now
+    PresentDialog( tempoDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+
+  }
+
+  $rect <490,170,690,210>
+  slot onBeatPress
+  {
+    var Core::Group beatDialog = new Application::BeatDialog;
+
+      // Present the Dialog now
+    PresentDialog( beatDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+  }
+}
+
+$rect <880,80,1080,120>
+$output false
+resource Resources::Font FontBodoniSmall
+{
+  attr fontname FontName = Bodoni MT;
+  attr fontheight Height = 25;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = true;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <330,190,530,230>
+$output false
+resource Resources::Bitmap PlayIcon
+{
+  attr bitmapfile FileName = .\Res\PlayIcon.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+// GUI components
+note group Note
+{
+  attr Bounds = <0,-20,300,250>;
+}
+
+// Assets
+note group Note1
+{
+  attr Bounds = <289,-9,1120,480>;
+}
+
+$rect <329,269,529,309>
+$output false
+resource Resources::Bitmap ButtonFace
+{
+  attr bitmapfile FileName = .\Res\ButtonFace.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <-450,60,-250,100>
+inline Inline
+{
+  /*
+
+    TO DO:
+
+    Include external header files or add type and function declarations needed
+    in the implementation of Application::DeviceClass. For example:
+
+      #include "DeviceDriver.h"
+
+      #include "your_middleware_api.h"
+
+      void Your_Middleware_Some_Function( int aSomeArg );
+
+  */
+}
+
+$rect <-450,20,-250,60>
+$output false
+class DeviceClass : Templates::DeviceClass
+{
+  $rect <30,80,230,120>
+  inherited method Done()
+  {
+    // The following section is intended to perform de-initialization-related operations
+    // in the underlying device or middleware. Consequently, the section is taken in
+    // account only when generating code (not during prototyping).
+    $if !$prototyper
+      var object thisObject = this;
+
+      /*
+         TO DO:
+
+         The following native statement is intended to enclose code to communicate with
+         your device API. The variable 'thisObject' contains a pointer to the actually
+         de-initialized Application::DeviceClass object. Use the 'thisObject' pointer to
+         e.g. de-register the object from the middleware if you have registered it
+         beforehand.
+         
+      */
+
+      native ( thisObject )
+      {
+        /*
+           TO DO:
+
+           Depending on your application case you call functions of the underlying
+           middleware (or access the device directly) in order to perform the necessary
+           de-initialization steps. For example, you invoke some 'C' function:
+
+             YourDevice_DeInitialize();
+
+           IMPORTANT:
+           ----------
+
+           The variable 'thisObject' represents the actually de-initialized instance of the
+           Application::DeviceClass. If you have stored this object at the initialization
+           time (in the 'Init' method) in some global C variable or registered it by the
+           middleware, it is important to perform now the opposite operation. Set the
+           global variable to NULL or de-register 'thisObject' object from the middleware.
+           
+        */
+      }
+    $endif
+  }
+
+  $rect <30,40,230,80>
+  inherited method Init()
+  {
+    // The following section is intended to perform initialization-related operations
+    // in the underlying device or middleware. Consequently, the section is taken in
+    // account only when generating code (not during prototyping).
+    $if !$prototyper
+      var object thisObject = this;
+
+      /*
+         TO DO:
+
+         The following native statement is intended to enclose code to communicate with
+         your device API. The variable 'thisObject' contains a pointer to the actually
+         initialized Application::DeviceClass object. Use the 'thisObject' pointer to
+         e.g. register the object by the middleware as receiver of events, etc.
+         
+      */
+
+      native ( thisObject )
+      {
+        /*
+           TO DO:
+
+           Depending on your application case you call functions of the underlying
+           middleware (or access the device directly) in order to perform the necessary
+           initialization steps. For example, you invoke some 'C' function:
+
+             YourDevice_Initialize();
+
+           The variable 'thisObject' represents the actually initialized instance of the
+           Application::DeviceClass. You can store this variable e.g. in the middleware
+           and use it whenever the middleware needs to notify the GUI application about
+           some state alternation or events. In this manner, the middleware will be able
+           to invoke methods of the interface device object.
+
+           For example, you can store 'thisObject' in some global C variable:
+
+             // Declaration of the global C variable
+             XObject theDeviceObject;
+
+             // Store the instance in the global variable
+             theDeviceObject = thisObject;
+
+           Later use the global variable e.g. to provide the GUI application with events:
+
+             ApplicationDeviceClass__TriggerSomeEvent( theDeviceObject );
+
+           IMPORTANT:
+           ----------
+
+           If you store 'thisObject' for later use, don't forget to implement the opposite
+           operation in the method 'Done'. Concrete, 'Done' should set the global variable
+           again to the value NULL.
+
+        */
+      }
+    $endif
+  }
+
+  note arrow Note2
+  {
+    attr Point1 = <250,50>;
+    attr Point2 = <320,50>;
+  }
+
+  // Constructor and Destructor
+  note group Note1
+  {
+    attr Bounds = <10,0,250,140>;
+  }
+
+  $rect <220,120,420,160>
+  property bool Running;
+
+  $rect <620,120,820,160>
+  onget Running
+  {
+    // Per default return the value stored already in the property.
+    return pure Running;
+
+    /*
+
+      TO DO:
+
+      If the property should return the value stored in the underlying device
+      or in the middleware, remove the above 'return' statement and instead do
+      following:
+
+      Declare a local variable to receive the value from the underlying device.
+      The type of the variable has to correspond to the data type of the property.
+      For example in case of an 'int32' property:
+      
+        var int32 result;
+
+      Implement a native statement to access the value and to store it in the
+      variable 'result'. Then return the value. For example:
+
+        $if !$prototyper
+          native ( result )
+          {
+            result = YourDevice_GetSomeValue();
+          }
+        $endif
+
+        return result;
+
+    */
+  }
+
+  $rect <420,120,620,160>
+  onset Running
+  {
+    // The property doesn't change -> nothing to do.
+    if ( pure Running == value )
+      return;
+
+    // Remember the new value in the internal memory of the property.
+    pure Running = value;
+
+    // For target code generation you will use your specific device API 
+    // to change the affected value.
+    $if !$prototyper
+      native ( value )
+      {
+        /*
+           TO DO:
+
+           You can call a function of your own device API or you simply
+           modify a variable existing in your middleware to reflect the
+           new value:
+
+           YourDevice_SetSomeValue( value );
+
+           or
+
+           YourDevice_SomeVariable = value;
+        */
+      }
+    $endif
+
+    // Notify all associated property observers.
+    notifyobservers ^Running;
+  }
+
+  // This method is intended to be called by the device to notify the GUI application \
+  // about an alternation of its setting or state value.
+  $rect <20,120,220,160>
+  $output true
+  method void UpdateRunning( arg int32 aNewValue )
+  {
+    // Only if the reported value does differ from the one stored currently in the property.
+    if ( aNewValue != pure Running )
+    {
+      // Remember the new value in the internal memory of the property.
+      pure Running = aNewValue;
+
+      // Notify all associated property observers.
+      notifyobservers ^Running;
+    }
+  }
+
+  $rect <220,170,420,210>
+  property int32 Beat;
+
+  $rect <620,170,820,210>
+  onget Beat
+  {
+    // Per default return the value stored already in the property.
+    return pure Beat;
+
+    /*
+
+      TO DO:
+
+      If the property should return the value stored in the underlying device
+      or in the middleware, remove the above 'return' statement and instead do
+      following:
+
+      Declare a local variable to receive the value from the underlying device.
+      The type of the variable has to correspond to the data type of the property.
+      For example in case of an 'int32' property:
+      
+        var int32 result;
+
+      Implement a native statement to access the value and to store it in the
+      variable 'result'. Then return the value. For example:
+
+        $if !$prototyper
+          native ( result )
+          {
+            result = YourDevice_GetSomeValue();
+          }
+        $endif
+
+        return result;
+
+    */
+  }
+
+  $rect <420,170,620,210>
+  onset Beat
+  {
+    // The property doesn't change -> nothing to do.
+    if ( pure Beat == value )
+      return;
+
+    // Remember the new value in the internal memory of the property.
+    pure Beat = value;
+
+    // For target code generation you will use your specific device API 
+    // to change the affected value.
+    $if !$prototyper
+      native ( value )
+      {
+        /*
+           TO DO:
+
+           You can call a function of your own device API or you simply
+           modify a variable existing in your middleware to reflect the
+           new value:
+
+           YourDevice_SetSomeValue( value );
+
+           or
+
+           YourDevice_SomeVariable = value;
+        */
+      }
+    $endif
+
+    // Notify all associated property observers.
+    notifyobservers ^Beat;
+  }
+
+  // This method is intended to be called by the device to notify the GUI application \
+  // about an alternation of its setting or state value.
+  $rect <20,170,220,210>
+  $output true
+  method void UpdateBeat( arg int32 aNewValue )
+  {
+    // Only if the reported value does differ from the one stored currently in the property.
+    if ( aNewValue != pure Beat )
+    {
+      // Remember the new value in the internal memory of the property.
+      pure Beat = aNewValue;
+
+      // Notify all associated property observers.
+      notifyobservers ^Beat;
+    }
+  }
+
+  $rect <220,220,420,260>
+  property int32 Tempo;
+
+  $rect <620,220,820,260>
+  onget Tempo
+  {
+    // Per default return the value stored already in the property.
+    return pure Tempo;
+
+    /*
+
+      TO DO:
+
+      If the property should return the value stored in the underlying device
+      or in the middleware, remove the above 'return' statement and instead do
+      following:
+
+      Declare a local variable to receive the value from the underlying device.
+      The type of the variable has to correspond to the data type of the property.
+      For example in case of an 'int32' property:
+      
+        var int32 result;
+
+      Implement a native statement to access the value and to store it in the
+      variable 'result'. Then return the value. For example:
+
+        $if !$prototyper
+          native ( result )
+          {
+            result = YourDevice_GetSomeValue();
+          }
+        $endif
+
+        return result;
+
+    */
+  }
+
+  $rect <420,220,620,260>
+  onset Tempo
+  {
+    // The property doesn't change -> nothing to do.
+    if ( pure Tempo == value )
+      return;
+
+    // Remember the new value in the internal memory of the property.
+    pure Tempo = value;
+
+    // For target code generation you will use your specific device API 
+    // to change the affected value.
+    $if !$prototyper
+      native ( value )
+      {
+        /*
+           TO DO:
+
+           You can call a function of your own device API or you simply
+           modify a variable existing in your middleware to reflect the
+           new value:
+
+           YourDevice_SetSomeValue( value );
+
+           or
+
+           YourDevice_SomeVariable = value;
+        */
+      }
+    $endif
+
+    // Notify all associated property observers.
+    notifyobservers ^Tempo;
+  }
+
+  // This method is intended to be called by the device to notify the GUI application \
+  // about an alternation of its setting or state value.
+  $rect <20,220,220,260>
+  $output true
+  method void UpdateTempo( arg int32 aNewValue )
+  {
+    // Only if the reported value does differ from the one stored currently in the property.
+    if ( aNewValue != pure Tempo )
+    {
+      // Remember the new value in the internal memory of the property.
+      pure Tempo = aNewValue;
+
+      // Notify all associated property observers.
+      notifyobservers ^Tempo;
+    }
+  }
+}
+
+$rect <-250,20,-50,60>
+autoobject Application::DeviceClass Device;
+
+$rect <-450,100,-210,140>
+$variant $prototyper
+vclass DeviceClassForPrototype : Application::DeviceClass
+{
+  $rect <0,140,200,180>
+  inherited onget Running
+  {
+     super(value);
+     OnSetRunning(value);
+     
+  }
+
+  $rect <0,100,200,140>
+  inherited onset Running
+  {
+    super(value);
+    Running=value;
+  }
+
+  $rect <10,10,160,50>
+  inherited onset Beat
+  {
+    super(value);
+    trace "Beat set to " , value;
+  }
+
+  $rect <0,60,160,100>
+  inherited onset Tempo
+  {
+    super(value);
+    trace "Tempo set ", value;
+  }
+}
+
+// Device
+note group Note2
+{
+  attr Bounds = <-460,-20,-10,180>;
+}
+
+$rect <330,150,530,190>
+$output false
+resource Resources::Bitmap Thumb
+{
+  attr bitmapfile FileName = .\Res\Thumb.png;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <330,70,530,110>
+$output false
+resource Resources::Bitmap Track
+{
+  attr bitmapfile FileName = .\Res\Track.png;
+  attr framesize FrameSize = <40,30>;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <580,29,820,69>
+$output false
+autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
+{
+  preset ThumbTintActive = #4A4EFFFF;
+  preset ThumbTintDefault = #141547FF;
+  preset ThumbActive = Application::Thumb;
+  preset ThumbDefault = Application::Thumb;
+  preset TrackRightTintActive = #B8B5E7E1;
+  preset TrackRightTintDefault = #B8B5E7FF;
+  preset TrackRightActive = Application::Track;
+  preset TrackRightDefault = Application::Track;
+  preset TrackLeftTintActive = #4A4EFFFF;
+  preset TrackLeftTintDefault = #141547FF;
+  preset TrackLeftActive = Application::Track;
+  preset TrackLeftDefault = Application::Track;
+}
+
+$rect <580,69,820,109>
+$output false
+autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
+{
+  preset ThumbTintActive = #4A4EFFFF;
+  preset ThumbTintDefault = #141547FF;
+  preset ThumbActive = Application::Thumb;
+  preset ThumbDefault = Application::Thumb;
+  preset TrackAboveTintActive = #BCBDFFB3;
+  preset TrackAboveTintDefault = #BCBDFFFF;
+  preset TrackAboveActive = Application::Track;
+  preset TrackAboveDefault = Application::Track;
+  preset TrackBelowTintActive = #4A4EFFFF;
+  preset TrackBelowTintDefault = #141547FF;
+  preset TrackBelowActive = Application::Track;
+  preset TrackBelowDefault = Application::Track;
+}
+
+$rect <329,349,529,389>
+$output false
+resource Resources::Bitmap RotaryBackground
+{
+  attr bitmapfile FileName = .\Res\RotaryBackgroundOxygen.png;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <329,389,529,429>
+$output false
+resource Resources::Bitmap RotaryThumbMax
+{
+  attr bitmapfile FileName = .\Res\RotaryThumbMax.png;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <600,189,800,229>
+$output false
+autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
+{
+  preset TrackRightColorActive = #141547FF;
+  preset TrackRightColorDefault = #141547FF;
+  preset CoverTintActive = #2B2D9AFF;
+  preset CoverTintFocused = #141547FF;
+  preset CoverTintDisabled = #141547FF;
+  preset CoverTintDefault = #141547FF;
+  preset ThumbMaxAngle = 2;
+  preset ThumbMinAngle = 270;
+  preset ThumbPivot = <80,80>;
+  preset ThumbTintActive = #3B3DD2FF;
+  preset ThumbTintDefault = #3B3DD2FF;
+  preset ThumbActive = Application::RotaryThumbMax;
+  preset ThumbFocused = Application::RotaryThumbMax;
+  preset ThumbDefault = Application::RotaryThumbMax;
+  preset ScaleTintActive = #2B2D9AFF;
+  preset ScaleTintFocused = #4D8DFFFF;
+  preset ScaleTintDisabled = #141547FF;
+  preset ScaleTintDefault = #141547FF;
+  preset ScaleActive = Application::RotaryBackground;
+  preset ScaleFocused = Application::RotaryBackground;
+  preset ScaleDisabled = Application::RotaryBackground;
+  preset ScaleDefault = Application::RotaryBackground;
+  preset WidgetMaxSize = <160,160>;
+  preset WidgetMinSize = <160,160>;
+}
+
+$rect <320,429,520,469>
+$output false
+resource Resources::Bitmap RotaryThumbMin
+{
+  attr bitmapfile FileName = .\Res\RotaryThumbMin.png;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <600,229,800,269>
+$output false
+autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
+{
+  preset TrackRightColorActive = #8C81FFFF;
+  preset TrackRightColorFocused = #8C81FFFF;
+  preset TrackRightColorDisabled = #8C81FFFF;
+  preset TrackRightColorDefault = #8C81FFFF;
+  preset TrackLeftColorActive = #2B2D9AFF;
+  preset TrackLeftColorFocused = #2B2D9AFF;
+  preset TrackLeftColorDisabled = #2B2D9AFF;
+  preset TrackLeftColorDefault = #2B2D9AFF;
+  preset CoverTintActive = #2B2D9AFF;
+  preset CoverTintFocused = #141547FF;
+  preset CoverTintDisabled = #141547FF;
+  preset CoverTintDefault = #141547FF;
+  preset ThumbMaxAngle = 90;
+  preset ThumbMinAngle = 358;
+  preset ThumbPivot = <0,80>;
+  preset ThumbTintActive = #2B2D9AFF;
+  preset ThumbTintFocused = #2B2D9AFF;
+  preset ThumbTintDisabled = #2B2D9AFF;
+  preset ThumbTintDefault = #2B2D9AFF;
+  preset ThumbActive = Application::RotaryThumbMin;
+  preset ThumbFocused = Application::RotaryThumbMin;
+  preset ThumbDefault = Application::RotaryThumbMin;
+  preset ScaleTintActive = #2B2D9AFF;
+  preset ScaleTintFocused = #141547FF;
+  preset ScaleTintDisabled = #141547FF;
+  preset ScaleTintDefault = #141547FF;
+  preset ScaleActive = Application::RotaryBackground;
+  preset ScaleFocused = Application::RotaryBackground;
+  preset ScaleDisabled = Application::RotaryBackground;
+  preset ScaleDefault = Application::RotaryBackground;
+  preset WidgetMaxSize = <160,160>;
+  preset WidgetMinSize = <160,160>;
+}
+
+// This object contains configuration information for a push button widget.
+$rect <581,109,820,149>
+$output false
+autoobject WidgetSet::PushButtonConfig PushButtonConfig
+{
+  preset IconTintActive = #5EFF42FF;
+  preset IconTintDefault = #5EFF42FF;
+  preset FaceLayout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop];
+  preset FaceTintActive = #525252FF;
+  preset FaceTintDefault = #525252FF;
+  preset FaceFrameActive = 1;
+  preset FaceFrameFocused = 0;
+  preset FaceFrameDefault = 0;
+  preset FaceActive = Application::ButtonFace;
+  preset FaceFocused = null;
+  preset FaceDisabled = null;
+  preset FaceDefault = Application::ButtonFace;
+}
+
+$rect <20,200,220,240>
+$output false
+class StartDialog : Core::Group
+{
+  $rect <510,60,710,100>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <510,100,710,140>
+  slot onStopPressed
+  {
+    trace "Metronome Stoped";
+
+      // Assume, this is a new Dialog you want to present
+    var Core::Group metronomeDialog = new Application::MetronomDialog;
+
+      // Present the Dialog now
+    PresentDialog( metronomeDialog, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+                                null, null, false );
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <205,86,275,156>;
+    preset Visible = true;
+    preset OnActivate = onStopPressed;
+    preset Icon = Application::StopIcon;
+    preset Label = "Caption";
+    preset Appearance = Application::PushButtonConfig;
+  }
+}
+
+$rect <329,229,529,269>
+$output false
+resource Resources::Bitmap StopIcon
+{
+  attr bitmapfile FileName = .\Res\StopIcon.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <580,149,820,189>
+$output false
+autoobject WidgetSet::PushButtonConfig NavigationButton
+{
+  preset LabelColorActive = #2860FFFF;
+  preset LabelColorDefault = #1840A3FF;
+  preset IconTintActive = #64FF59FF;
+  preset IconTintFocused = #FFFFFFFF;
+  preset IconTintDisabled = #FFFFFFFF;
+  preset IconTintDefault = #48B840FF;
+  preset LabelFont = Application::FontBodoniSmall;
+  preset FaceTintActive = #E0F5FFFF;
+  preset FaceTintDisabled = #FFFFFFFF;
+  preset FaceTintDefault = #F7FFF7FF;
+  preset FaceActive = Application::NavigationButtonFace;
+  preset FaceDefault = Application::NavigationButtonFace;
+}
+
+$rect <329,309,529,349>
+$output false
+resource Resources::Bitmap NavigationButtonFace
+{
+  attr bitmapfile FileName = .\Res\PushButton.png;
+  attr bitmapformat Format = Alpha8;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <880,125,1080,165>
+autoobject Graphics::AttrSet DarkBlueColor
+{
+  preset Bitmap0 = null;
+  preset Color0 = #141547FF;
+}

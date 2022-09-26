@@ -1,0 +1,52 @@
+﻿$version 11.00
+
+$rect <20,60,260,100>
+$output false
+autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
+{
+  preset ThumbTintActive = #4A4EFFFF;
+  preset ThumbTintDefault = #141547FF;
+  preset ThumbActive = Application::Thumb;
+  preset ThumbDefault = Application::Thumb;
+  preset TrackRightTintActive = #B8B5E7E1;
+  preset TrackRightTintDefault = #B8B5E7FF;
+  preset TrackRightActive = Application::Track;
+  preset TrackRightDefault = Application::Track;
+  preset TrackLeftTintActive = #4A4EFFFF;
+  preset TrackLeftTintDefault = #141547FF;
+  preset TrackLeftActive = Application::Track;
+  preset TrackLeftDefault = Application::Track;
+}
+
+$rect <20,110,260,150>
+$output false
+autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
+{
+  preset ThumbTintActive = #4A4EFFFF;
+  preset ThumbTintDefault = #141547FF;
+  preset ThumbActive = Application::Thumb;
+  preset ThumbDefault = Application::Thumb;
+  preset TrackAboveTintActive = #BCBDFFB3;
+  preset TrackAboveTintDefault = #BCBDFFFF;
+  preset TrackAboveActive = Application::Track;
+  preset TrackAboveDefault = Application::Track;
+  preset TrackBelowTintActive = #4A4EFFFF;
+  preset TrackBelowTintDefault = #141547FF;
+  preset TrackBelowActive = Application::Track;
+  preset TrackBelowDefault = Application::Track;
+}
+
+$rect <20,170,260,210>
+$output false
+autoobject WidgetSet::PushButtonConfig MyPushButtonConfig
+{
+  preset LabelColorActive = #000000FF;
+  preset LabelColorFocused = #000000FF;
+  preset IconTintActive = #2C25FFFF;
+  preset IconTintDisabled = #FFFFFFFF;
+  preset IconTintDefault = #2C25FFFF;
+  preset FaceTintActive = #2C25FFFF;
+  preset FaceTintDefault = #2C25FFFF;
+  preset FaceActive = Application::Thumb;
+  preset FaceDefault = Application::Thumb;
+}
