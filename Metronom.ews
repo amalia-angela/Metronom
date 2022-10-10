@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application;
+attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::MetronomDialog.onBeatPress;
-attr codeSelEnd = <56,0>;
-attr codeSelStart = <46,0>;
+attr codeInspector = Application::Application.onOpenMenu;
+attr codeSelEnd = <0,7>;
+attr codeSelStart = <36,7>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -23,11 +23,12 @@ attr heapMonitor_Show = false;
 attr language = Default;
 attr profile = Profile;
 attr profilerMonitor_Show = false;
-attr search_CaseSensitive = false;
-attr search_IgnoreDescription = false;
-attr search_IgnoreMosaic = false;
-attr search_LimitToComposer = true;
-attr search_WholeWords = false;
+attr search_CaseSensitive = true;
+attr search_History = Application::MetronomeBackground;
+attr search_IgnoreDescription = true;
+attr search_IgnoreMosaic = true;
+attr search_LimitToComposer = false;
+attr search_WholeWords = true;
 attr search_WildCards = false;
 
 view Project
@@ -40,37 +41,56 @@ view Project
   attr zoom = 1.0;
 }
 
-view class Application::MetronomDialog
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = onBeatPress;
-  attr codeSelEnd = <56,0>;
-  attr codeSelStart = <46,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
 view unit Application
 {
   attr enableWireMode = false;
-  attr scrollTo = <217,-21>;
+  attr scrollTo = <-7,41>;
   attr zoom = 1.0;
 }
 
-view class Application::DeviceClass
+view class Application::Application
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onOpenMenu;
+  attr codeSelEnd = <0,7>;
+  attr codeSelStart = <36,7>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SettingsMenu
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onNavigation;
+  attr codeSelEnd = <14,0>;
+  attr codeSelStart = <14,0>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::NavigationMetronom
 {
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
-view class Application::BeatDialog
+view class WidgetSet::RotaryKnob
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,137>;
+  attr zoom = 1.0;
+}
+
+view class Application::Slider
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = UpdateViewState;
+  attr codeInspector = Init;
   attr codeSelEnd = <0,0>;
   attr codeSelStart = <0,0>;
   attr enableWireMode = false;
@@ -78,9 +98,14 @@ view class Application::BeatDialog
   attr zoom = 1.0;
 }
 
-view class Application::TempoDialog
+view class Application::DeviceClass
 {
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = OnGetGUIStyle;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
+  attr scrollTo = <-224,-7>;
   attr zoom = 1.0;
 }

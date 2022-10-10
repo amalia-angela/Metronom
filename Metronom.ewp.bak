@@ -50,7 +50,7 @@ unit Application
 // Mosaic Framework
 note group Note1
 {
-  attr Bounds = <20,20,260,290>;
+  attr Bounds = <20,20,260,380>;
 }
 
 // Profile Configuration
@@ -79,7 +79,7 @@ profile Profile : Tara.Win32.RGBA8888
   attr Verbose = false;
   attr ScreenSize = <480,272>;
   attr Optimization = High;
-  attr ApplicationClass = Application::Application;
+  attr ApplicationClass = Application::Slider;
   attr CleanOutputDirectories = false;
   attr FontConversion = Windows;
   attr OutputFileNameExtension = c;
