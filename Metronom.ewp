@@ -68,7 +68,7 @@ note group Note3
 // Project Units
 note group Note5
 {
-  attr Bounds = <270,140,760,290>;
+  attr Bounds = <270,140,510,380>;
 }
 
 // This is a profile member for the project. This profile controls the code generation \
@@ -100,7 +100,7 @@ unit Templates
   attr Directory = $Mosaic\;
 }
 
-$rect <526,187,726,227>
+$rect <290,230,490,270>
 unit Res
 {
   attr Directory = .\;

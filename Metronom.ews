@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application::OnePageMetronom;
+attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
-attr codeInspector = Application::OnePageMetronom.onStartButtonPress;
-attr codeSelEnd = <0,0>;
-attr codeSelStart = <0,0>;
+attr codeFirstPos = <0,19>;
+attr codeInspector = Application::Application.onOpenMenu;
+attr codeSelEnd = <31,24>;
+attr codeSelStart = <31,24>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -40,31 +40,31 @@ view Project
 view unit Application
 {
   attr enableWireMode = false;
-  attr scrollTo = <-37,-68>;
+  attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
-view unit Res
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-50,-55>;
-  attr zoom = 1.0;
-}
-
-view class Application::Slider
+view class Application::Scrim
 {
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
-view class Application::OnePageMetronom
+view class Application::Application
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = onStartButtonPress;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
+  attr codeFirstPos = <0,19>;
+  attr codeInspector = onOpenMenu;
+  attr codeSelEnd = <31,24>;
+  attr codeSelStart = <31,24>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SettingsMenu
+{
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;

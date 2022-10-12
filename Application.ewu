@@ -1,8 +1,8 @@
 ﻿$version 11.00
 
-$rect <260,280,460,320>
+$rect <80,410,250,450>
 $output false
-class SliderTempo : Core::Group
+class SlidingTempo : Core::Group
 {
   $rect <500,10,700,50>
   inherited property Bounds = <0,0,480,272>;
@@ -66,9 +66,9 @@ class SliderTempo : Core::Group
   }
 }
 
-$rect <260,240,460,280>
+$rect <80,370,250,410>
 $output false
-class SliderBeat : Core::Group
+class SlidingBeat : Core::Group
 {
   $rect <510,0,710,40>
   inherited property Bounds = <0,0,480,272>;
@@ -129,9 +129,9 @@ class SliderBeat : Core::Group
   }
 }
 
-$rect <260,200,460,240>
+$rect <80,330,250,370>
 $output false
-class SliderMetronome : Core::Group
+class SlidingMain : Core::Group
 {
   $rect <500,10,700,50>
   inherited property Bounds = <0,0,480,272>;
@@ -233,14 +233,14 @@ class SliderMetronome : Core::Group
 // GUI components
 note group Note
 {
-  attr Bounds = <10,10,510,460>;
+  attr Bounds = <0,0,500,490>;
 }
 
-$rect <560,340,790,380>
+$rect <530,340,760,380>
 $output false
 class DeviceClass : Templates::DeviceClass
 {
-  $rect <30,80,230,120>
+  $rect <0,40,200,80>
   inherited method Done()
   {
     // The following section is intended to perform de-initialization-related operations
@@ -285,7 +285,7 @@ class DeviceClass : Templates::DeviceClass
     $endif
   }
 
-  $rect <30,40,230,80>
+  $rect <0,0,200,40>
   inherited method Init()
   {
     // The following section is intended to perform initialization-related operations
@@ -345,22 +345,10 @@ class DeviceClass : Templates::DeviceClass
     $endif
   }
 
-  note arrow Note2
-  {
-    attr Point1 = <250,50>;
-    attr Point2 = <320,50>;
-  }
-
-  // Constructor and Destructor
-  note group Note1
-  {
-    attr Bounds = <10,0,250,140>;
-  }
-
-  $rect <220,120,420,160>
+  $rect <200,90,400,130>
   property bool Running;
 
-  $rect <620,120,820,160>
+  $rect <600,90,800,130>
   onget Running
   {
     // Per default return the value stored already in the property.
@@ -395,7 +383,7 @@ class DeviceClass : Templates::DeviceClass
     */
   }
 
-  $rect <420,120,620,160>
+  $rect <400,90,600,130>
   onset Running
   {
     // The property doesn't change -> nothing to do.
@@ -432,7 +420,7 @@ class DeviceClass : Templates::DeviceClass
 
   // This method is intended to be called by the device to notify the GUI application \
   // about an alternation of its setting or state value.
-  $rect <20,120,220,160>
+  $rect <0,90,200,130>
   $output true
   method void UpdateRunning( arg int32 aNewValue )
   {
@@ -447,10 +435,10 @@ class DeviceClass : Templates::DeviceClass
     }
   }
 
-  $rect <220,170,420,210>
+  $rect <200,130,400,170>
   property int32 Beat;
 
-  $rect <620,170,820,210>
+  $rect <600,130,800,170>
   onget Beat
   {
     // Per default return the value stored already in the property.
@@ -485,7 +473,7 @@ class DeviceClass : Templates::DeviceClass
     */
   }
 
-  $rect <420,170,620,210>
+  $rect <400,130,600,170>
   onset Beat
   {
     // The property doesn't change -> nothing to do.
@@ -522,7 +510,7 @@ class DeviceClass : Templates::DeviceClass
 
   // This method is intended to be called by the device to notify the GUI application \
   // about an alternation of its setting or state value.
-  $rect <20,170,220,210>
+  $rect <0,130,200,170>
   $output true
   method void UpdateBeat( arg int32 aNewValue )
   {
@@ -537,10 +525,10 @@ class DeviceClass : Templates::DeviceClass
     }
   }
 
-  $rect <220,220,420,260>
+  $rect <200,170,400,210>
   property int32 Tempo;
 
-  $rect <620,220,820,260>
+  $rect <600,170,800,210>
   onget Tempo
   {
     // Per default return the value stored already in the property.
@@ -575,7 +563,7 @@ class DeviceClass : Templates::DeviceClass
     */
   }
 
-  $rect <420,220,620,260>
+  $rect <400,170,600,210>
   onset Tempo
   {
     // The property doesn't change -> nothing to do.
@@ -612,7 +600,7 @@ class DeviceClass : Templates::DeviceClass
 
   // This method is intended to be called by the device to notify the GUI application \
   // about an alternation of its setting or state value.
-  $rect <20,220,220,260>
+  $rect <0,170,200,210>
   $output true
   method void UpdateTempo( arg int32 aNewValue )
   {
@@ -627,10 +615,10 @@ class DeviceClass : Templates::DeviceClass
     }
   }
 
-  $rect <220,290,420,330>
+  $rect <200,220,400,260>
   property int32 GUIStyle;
 
-  $rect <620,290,820,330>
+  $rect <600,220,800,260>
   onget GUIStyle
   {
     // Per default return the value stored already in the property.
@@ -665,7 +653,7 @@ class DeviceClass : Templates::DeviceClass
     */
   }
 
-  $rect <420,290,620,330>
+  $rect <400,220,600,260>
   onset GUIStyle
   {
     // The property doesn't change -> nothing to do.
@@ -701,10 +689,10 @@ class DeviceClass : Templates::DeviceClass
   }
 }
 
-$rect <800,340,1030,380>
+$rect <770,340,1000,380>
 autoobject Application::DeviceClass Device;
 
-$rect <560,390,790,430>
+$rect <530,390,760,430>
 $variant $prototyper
 vclass DeviceClassForPrototype : Application::DeviceClass
 {
@@ -737,10 +725,10 @@ vclass DeviceClassForPrototype : Application::DeviceClass
 // Device
 note group Note2
 {
-  attr Bounds = <540,300,1040,460>;
+  attr Bounds = <510,300,1020,460>;
 }
 
-$rect <890,150,1130,190>
+$rect <830,140,1090,180>
 $output false
 autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
 {
@@ -758,7 +746,7 @@ autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
   preset TrackLeftDefault = Res::TrackHorizontal;
 }
 
-$rect <890,190,1130,230>
+$rect <830,180,1090,220>
 $output false
 autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
 {
@@ -776,7 +764,7 @@ autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
   preset TrackBelowDefault = Res::TrackVertical;
 }
 
-$rect <900,50,1100,90>
+$rect <830,50,1090,90>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
 {
@@ -806,7 +794,7 @@ autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
   preset WidgetMinSize = <160,160>;
 }
 
-$rect <900,90,1100,130>
+$rect <830,90,1090,130>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
 {
@@ -881,11 +869,11 @@ autoobject WidgetSet::PushButtonConfig NavigationButton
   preset FaceDefault = Res::NavigationButtonFace;
 }
 
-$rect <40,150,240,190>
+$rect <50,110,250,150>
 $output false
 class OnePageMetronom : Core::Group
 {
-  $rect <530,10,730,50>
+  $rect <250,290,450,330>
   inherited property Bounds = <0,0,480,272>;
 
   $rect <20,20,160,60>
@@ -920,7 +908,7 @@ class OnePageMetronom : Core::Group
   {
     preset Bounds = <205,86,275,156>;
     preset Visible = true;
-    preset OnRelease = onStartButtonPress;
+    preset OnRelease = onTogleStartStop;
     preset OnActivate = null;
     preset Icon = Res::PlayIcon;
     preset Label = "Caption";
@@ -943,8 +931,8 @@ class OnePageMetronom : Core::Group
     preset Appearance = Application::RotaryMinConfig;
   }
 
-  $rect <40,340,240,380>
-  slot onStartButtonPress
+  $rect <20,340,220,380>
+  slot onTogleStartStop
   {
     Application::Device.Running = !  Application::Device.Running;
 
@@ -976,15 +964,15 @@ class OnePageMetronom : Core::Group
   // Touch screen events
   note group Note
   {
-    attr Bounds = <0,290,290,420>;
+    attr Bounds = <0,290,240,420>;
   }
 }
 
-$rect <40,200,240,240>
+$rect <50,160,250,200>
 $output false
 class NavigationMetronom : Core::Group
 {
-  $rect <530,10,730,50>
+  $rect <500,0,700,40>
   inherited property Bounds = <0,0,480,272>;
 
   $rect <20,20,160,60>
@@ -1019,7 +1007,7 @@ class NavigationMetronom : Core::Group
   {
     preset Bounds = <205,86,275,156>;
     preset Visible = true;
-    preset OnRelease = onStartButtonPress;
+    preset OnRelease = onTogleStartStop;
     preset OnActivate = null;
     preset Icon = Res::PlayIcon;
     preset Label = "Caption";
@@ -1063,7 +1051,7 @@ class NavigationMetronom : Core::Group
   }
 
   $rect <10,350,210,390>
-  slot onStartButtonPress
+  slot onTogleStartStop
   {
     //if button is pressed it changes sate from start/stop and icon PlayIcon/StopIcon
 
@@ -1126,7 +1114,7 @@ class NavigationMetronom : Core::Group
   }
 }
 
-$rect <40,240,240,280>
+$rect <80,200,250,240>
 $output false
 class NavigationTempo : Core::Group
 {
@@ -1203,48 +1191,27 @@ class NavigationTempo : Core::Group
     preset Appearance = Application::NavigationButton;
   }
 
-  $rect <10,370,210,410>
+  $rect <530,110,730,150>
   slot onCheck
   {
     signal OnCheck;
   }
 
-  $rect <220,370,420,410>
+  $rect <740,110,940,150>
   property slot OnCheck;
-
-  $rect <260,410,460,450>
-  onset OnCheck
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure OnCheck == value )
-      return;
-
-    // Remember the property's new value.
-    pure OnCheck = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <260,450,460,490>
-  onget OnCheck
-  {
-    return pure OnCheck;
-  }
 
   // Touch screen events
   note group Note
   {
-    attr Bounds = <0,320,470,520>;
+    attr Bounds = <510,60,960,180>;
   }
 }
 
-$rect <40,280,240,320>
+$rect <80,240,250,280>
 $output false
 class NavigationBeat : Core::Group
 {
-  $rect <510,0,710,40>
+  $rect <500,0,700,40>
   inherited property Bounds = <0,0,480,272>;
 
   $rect <20,20,160,60>
@@ -1304,7 +1271,7 @@ class NavigationBeat : Core::Group
     preset Appearance = Application::NavigationButton;
   }
 
-  $rect <20,360,220,400>
+  $rect <510,90,710,130>
   slot onCheck
   {
     signal OnCheck;
@@ -1320,48 +1287,27 @@ class NavigationBeat : Core::Group
     preset Appearance = Application::MyVerticalSliderConfig;
   }
 
-  $rect <230,360,430,400>
+  $rect <720,90,920,130>
   property slot OnCheck;
-
-  $rect <270,400,470,440>
-  onset OnCheck
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure OnCheck == value )
-      return;
-
-    // Remember the property's new value.
-    pure OnCheck = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <270,440,470,480>
-  onget OnCheck
-  {
-    return pure OnCheck;
-  }
 
   // Touch screen events
   note group Note
   {
-    attr Bounds = <10,310,500,510>;
+    attr Bounds = <500,40,940,160>;
   }
 }
 
-$rect <260,330,460,370>
+$rect <50,290,250,330>
 $output false
-class Slider : Core::Group
+class SlidingMetronom : Core::Group
 {
-  $rect <50,340,220,380>
+  $rect <0,290,170,330>
   inherited method Init()
   {
     Outline.ScrollOffset = point( -SliderTempo.Bounds.w, 0 );
   }
 
-  $rect <490,0,690,40>
+  $rect <0,330,170,370>
   inherited property Bounds = <0,0,480,272>;
 
   $rect <20,20,160,60>
@@ -1373,14 +1319,14 @@ class Slider : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::SliderTempo SliderTempo
+  object Application::SlidingTempo SliderTempo
   {
     preset Bounds = <0,0,480,272>;
     preset Embedded = true;
   }
 
   $rect <20,20,160,60>
-  object Application::SliderMetronome SliderMetronome
+  object Application::SlidingMain SliderMetronome
   {
     preset Layout = Core::Layout[AlignToLeft, AlignToTop];
     preset Bounds = <0,0,480,272>;
@@ -1388,7 +1334,7 @@ class Slider : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::SliderBeat SliderBeat
+  object Application::SlidingBeat SliderBeat
   {
     preset Bounds = <0,0,480,272>;
     preset Embedded = true;
@@ -1409,52 +1355,54 @@ class Slider : Core::Group
     preset Friction = 1.0;
     preset Embedded = false;
   }
-
-  // State management
-  note group Note
-  {
-    attr Bounds = <10,290,250,490>;
-  }
 }
 
-$rect <20,50,220,90>
+$rect <20,70,250,110>
 $output false
 class Application : Core::Root
 {
-  $rect <510,10,710,50>
+  $rect <500,0,700,40>
   inherited property Bounds = <0,0,480,272>;
 
-  $rect <500,350,700,390>
+  $rect <730,140,930,180>
   slot onOpenMenu
   {
     // In order to avoid race conditions ignore the push button events if there
     // is already a menu presented
-    if ( menu != null )
+    if ( menu != null)
     {
       AppContainer.DismissDialog(menu, Application::SlideUpCentered, null, null,  null, null, false );
+      AppContainer.DismissDialog(menu.Scrim, Application::SlideUpCentered, null, null,  null, null, false );
       menu = null;
+     // scrim = null;
       return;
       }
 
-    // Create a new instance of the menu component
+    // Create a new instance of the menu component   and a 'scrim' dialog
+
     menu = new Application::SettingsMenu;
+
+
     menu.OnOpenNavigaton = onNavigation;
-    menu.onOpenSlider = onSlider;
-    menu.OnOpenOnePage = onOnePage;
+    menu.onOpenSlider    = onSliding;
+    menu.OnOpenOnePage   = onOnePage;
+
+
 
     // ... and present it by using a fade-in transition
+
+    Group.PresentDialog( menu.Scrim, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
     AppContainer.PresentDialog( menu, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
 
 
   }
 
-  $rect <500,400,700,440>
+  $rect <730,190,930,230>
   slot onNavigation
   {
     if ( menu != null )
     {
-      //DismissDialog( menu, aOverrideDismissTransition, aOverrideOverlayTransition, aOverrideRestoreTransition, aComplete, aCancel, aCombine );
-      menu = null;
+      menu  = null;
     }
 
 
@@ -1466,11 +1414,11 @@ class Application : Core::Root
 
   }
 
-  $rect <290,350,490,390>
+  $rect <520,140,720,180>
   var Application::SettingsMenu menu = null;
 
   $rect <20,20,160,60>
-  object Core::Group wellcom
+  object Core::Group Wellcome
   {
     preset Bounds = <0,0,480,272>;
   }
@@ -1493,9 +1441,15 @@ class Application : Core::Root
   }
 
   $rect <20,20,160,60>
+  object Core::Group Group
+  {
+    preset Bounds = <0,0,480,272>;
+  }
+
+  $rect <20,20,160,60>
   object Core::Group AppContainer
   {
-    preset Bounds = <1,1,480,272>;
+    preset Bounds = <0,0,480,272>;
   }
 
   $rect <20,20,160,60>
@@ -1508,27 +1462,27 @@ class Application : Core::Root
     preset Appearance = Application::MenuButtonConfig;
   }
 
-  $rect <500,440,700,480>
-  slot onSlider
+  $rect <730,230,930,270>
+  slot onSliding
   {
     if ( menu != null )
     {
-      menu = null;
+      menu  = null;
     }
 
 
-    var Core::Group page = new Application::Slider;
+    var Core::Group page = new Application::SlidingMetronom;
 
     AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
                                 null, null, null,false );
   }
 
-  $rect <500,480,700,520>
+  $rect <730,270,930,310>
   slot onOnePage
   {
     if ( menu != null )
     {
-        menu = null;
+      menu  = null;
     }
 
 
@@ -1538,8 +1492,8 @@ class Application : Core::Root
                                 null, null, null,false );
   }
 
-  $rect <30,350,230,390>
-  object Effects::ColorEffect ColorEffect
+  $rect <500,40,700,80>
+  object Effects::ColorEffect HelloTextEffect
   {
     preset Enabled = true;
     preset Value2 = #1DF6D7B5;
@@ -1547,21 +1501,15 @@ class Application : Core::Root
     preset Outlet = ^Text.Color;
   }
 
-  // Effects
-  note group Note
-  {
-    attr Bounds = <10,300,250,440>;
-  }
-
-  // This is an annotation.
+  // Menu navigation
   note group Note1
   {
-    attr Bounds = <270,300,720,540>;
+    attr Bounds = <500,90,950,330>;
   }
 }
 
 // This component implements a generic menu.
-$rect <270,100,470,140>
+$rect <300,150,480,190>
 $output false
 class Menu : Templates::Menu
 {
@@ -1918,7 +1866,7 @@ class Menu : Templates::Menu
 }
 
 // This component implements a simple menu item.
-$rect <270,140,470,180>
+$rect <300,190,480,230>
 $output false
 class MenuItem : Templates::MenuItem
 {
@@ -2292,7 +2240,7 @@ class MenuItem : Templates::MenuItem
   property string Caption = "Caption";
 }
 
-$rect <30,100,230,140>
+$rect <280,110,480,150>
 $output false
 class SettingsMenu : Application::Menu
 {
@@ -2388,8 +2336,11 @@ class SettingsMenu : Application::Menu
   // Touch screen events
   note group Note
   {
-    attr Bounds = <0,250,490,450>;
+    attr Bounds = <0,250,490,480>;
   }
+
+  $rect <20,440,220,480>
+  var Application::Scrim Scrim;
 }
 
 $rect <590,740,830,780>
@@ -2422,7 +2373,7 @@ autoobject WidgetSet::PushButtonConfig MenuButtonConfig
 // the creation and configuration of the object. If you require the transition to \
 // run with other configuration (e.g. other timing parameters), create a copy of \
 // this object and adapt its properties accordingly.
-$rect <560,50,810,90>
+$rect <530,50,780,90>
 $output false
 autoobject Effects::SlideTransition SlideUpCentered
 {
@@ -2448,7 +2399,7 @@ autoobject Effects::SlideTransition SlideUpCentered
 // the creation and configuration of the object. If you require the transition to \
 // run with other configuration (e.g. other timing parameters), create a copy of \
 // this object and adapt its properties accordingly.
-$rect <560,90,810,130>
+$rect <530,90,780,130>
 $output false
 autoobject Effects::SlideTransition SlideDownCentered
 {
@@ -2462,11 +2413,26 @@ autoobject Effects::SlideTransition SlideDownCentered
 // Effects
 note group Note3
 {
-  attr Bounds = <540,0,830,290>;
+  attr Bounds = <510,0,800,290>;
 }
 
 // WidgetSet
 note group Note4
 {
-  attr Bounds = <860,0,1160,290>;
+  attr Bounds = <810,0,1110,290>;
+}
+
+$rect <270,330,470,370>
+$output false
+class Scrim : Core::Group
+{
+  $rect <490,0,690,40>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #DCDCDC8C;
+  }
 }
