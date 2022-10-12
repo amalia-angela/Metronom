@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application::Application;
+attr active = Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
+attr codeFirstPos = <0,1>;
 attr codeInspector = Application::Application.onOpenMenu;
-attr codeSelEnd = <0,7>;
-attr codeSelStart = <36,7>;
+attr codeSelEnd = <6,11>;
+attr codeSelStart = <6,11>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -37,75 +37,37 @@ view Project
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <-7,12>;
+  attr scrollTo = <-7,-36>;
   attr zoom = 1.0;
 }
 
 view unit Application
 {
   attr enableWireMode = false;
-  attr scrollTo = <-7,41>;
+  attr scrollTo = <-37,-7>;
   attr zoom = 1.0;
 }
 
 view class Application::Application
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
+  attr codeFirstPos = <0,1>;
   attr codeInspector = onOpenMenu;
-  attr codeSelEnd = <0,7>;
-  attr codeSelStart = <36,7>;
+  attr codeSelEnd = <6,11>;
+  attr codeSelStart = <6,11>;
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
-view class Application::SettingsMenu
+view class Application::MenuItem
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = onNavigation;
-  attr codeSelEnd = <14,0>;
-  attr codeSelStart = <14,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::NavigationMetronom
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class WidgetSet::RotaryKnob
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,137>;
-  attr zoom = 1.0;
-}
-
-view class Application::Slider
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Init;
+  attr codeInspector = GetMinimalSize;
   attr codeSelEnd = <0,0>;
   attr codeSelStart = <0,0>;
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::DeviceClass
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnGetGUIStyle;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-224,-7>;
   attr zoom = 1.0;
 }

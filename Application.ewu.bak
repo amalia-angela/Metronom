@@ -1,7 +1,7 @@
 ﻿$version 11.00
 
 // This is the root component of the entire GUI application.
-$rect <-240,160,-40,200>
+$rect <20,180,220,220>
 $output false
 class Navigation : Core::Group
 {
@@ -27,7 +27,7 @@ class Navigation : Core::Group
   }
 }
 
-$rect <30,100,230,140>
+$rect <290,120,490,160>
 $output false
 class SliderTempo : Core::Group
 {
@@ -174,7 +174,7 @@ class SliderTempo : Core::Group
   {
     preset Bounds = <174,16,291,61>;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -220,7 +220,7 @@ class SliderTempo : Core::Group
   }
 }
 
-$rect <330,30,530,70>
+$rect <590,50,790,90>
 $output false
 resource Resources::Bitmap MetronomeBackground
 {
@@ -232,11 +232,11 @@ resource Resources::Bitmap MetronomeBackground
   attr bitmapmode Mode = Default;
 }
 
-$rect <880,29,1080,69>
+$rect <1140,49,1340,89>
 $output false
-resource Resources::Font FontBodoni
+resource Resources::Font FontBodoniLarge
 {
-  attr fontname FontName = Bodoni MT;
+  attr fontname FontName = Candara Light;
   attr fontheight Height = 32;
   attr fontheightmode HeightMode = Popular;
   attr fontquality Quality = High;
@@ -248,7 +248,7 @@ resource Resources::Font FontBodoni
   attr fontrowdistance RowDistance;
 }
 
-$rect <334,106,534,146>
+$rect <594,126,794,166>
 $output false
 resource Resources::Bitmap CheckIcon
 {
@@ -260,7 +260,7 @@ resource Resources::Bitmap CheckIcon
   attr bitmapmode Mode = Default;
 }
 
-$rect <30,60,230,100>
+$rect <290,80,490,120>
 $output false
 class SliderBeat : Core::Group
 {
@@ -407,7 +407,7 @@ class SliderBeat : Core::Group
   {
     preset Bounds = <190,24,290,54>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -450,7 +450,7 @@ class SliderBeat : Core::Group
   }
 }
 
-$rect <30,20,230,60>
+$rect <290,40,490,80>
 $output false
 class SliderMetronome : Core::Group
 {
@@ -676,7 +676,7 @@ class SliderMetronome : Core::Group
     preset Bounds = <36,201,154,231>;
     preset ColorBL = #3A61D4FF;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
     preset Visible = false;
   }
@@ -686,17 +686,17 @@ class SliderMetronome : Core::Group
   {
     preset Bounds = <342,207,442,237>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
     preset Visible = false;
   }
 }
 
-$rect <880,80,1080,120>
+$rect <1140,100,1340,140>
 $output false
-resource Resources::Font FontBodoniSmall
+resource Resources::Font FontBodoniMedium
 {
-  attr fontname FontName = Bodoni MT;
+  attr fontname FontName = Candara Light;
   attr fontheight Height = 25;
   attr fontheightmode HeightMode = Popular;
   attr fontquality Quality = High;
@@ -708,7 +708,7 @@ resource Resources::Font FontBodoniSmall
   attr fontrowdistance RowDistance;
 }
 
-$rect <330,190,530,230>
+$rect <590,210,790,250>
 $output false
 resource Resources::Bitmap PlayIcon
 {
@@ -723,28 +723,28 @@ resource Resources::Bitmap PlayIcon
 // GUI components
 note group Note
 {
-  attr Bounds = <-260,-20,270,460>;
+  attr Bounds = <0,0,530,480>;
 }
 
 // Assets
 note group Note1
 {
-  attr Bounds = <320,-10,1150,580>;
+  attr Bounds = <580,10,1410,650>;
 }
 
-$rect <329,269,529,309>
+$rect <589,289,789,329>
 $output false
 resource Resources::Bitmap ButtonFace
 {
   attr bitmapfile FileName = .\Res\ButtonFace.png;
-  attr bitmapformat Format = Native;
+  attr bitmapformat Format = Alpha8;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
   attr bitmapdithering Dithering = Auto;
   attr bitmapmode Mode = Default;
 }
 
-$rect <-180,590,20,630>
+$rect <80,610,280,650>
 inline Inline
 {
   /*
@@ -763,7 +763,7 @@ inline Inline
   */
 }
 
-$rect <-180,550,20,590>
+$rect <80,570,280,610>
 $output false
 class DeviceClass : Templates::DeviceClass
 {
@@ -1153,12 +1153,85 @@ class DeviceClass : Templates::DeviceClass
       notifyobservers ^Tempo;
     }
   }
+
+  $rect <220,290,420,330>
+  property int32 GUIStyle;
+
+  $rect <620,290,820,330>
+  onget GUIStyle
+  {
+    // Per default return the value stored already in the property.
+    return pure GUIStyle;
+
+    /*
+
+      TO DO:
+
+      If the property should return the value stored in the underlying device
+      or in the middleware, remove the above 'return' statement and instead do
+      following:
+
+      Declare a local variable to receive the value from the underlying device.
+      The type of the variable has to correspond to the data type of the property.
+      For example in case of an 'int32' property:
+      
+        var int32 result;
+
+      Implement a native statement to access the value and to store it in the
+      variable 'result'. Then return the value. For example:
+
+        $if !$prototyper
+          native ( result )
+          {
+            result = YourDevice_GetSomeValue();
+          }
+        $endif
+
+        return result;
+
+    */
+  }
+
+  $rect <420,290,620,330>
+  onset GUIStyle
+  {
+    // The property doesn't change -> nothing to do.
+    if ( pure GUIStyle == value )
+      return;
+
+    // Remember the new value in the internal memory of the property.
+    pure GUIStyle = value;
+
+    // For target code generation you will use your specific device API 
+    // to change the affected value.
+    $if !$prototyper
+      native ( value )
+      {
+        /*
+           TO DO:
+
+           You can call a function of your own device API or you simply
+           modify a variable existing in your middleware to reflect the
+           new value:
+
+           YourDevice_SetSomeValue( value );
+
+           or
+
+           YourDevice_SomeVariable = value;
+        */
+      }
+    $endif
+
+    // Notify all associated property observers.
+    notifyobservers ^GUIStyle;
+  }
 }
 
-$rect <20,550,220,590>
+$rect <280,570,480,610>
 autoobject Application::DeviceClass Device;
 
-$rect <-180,630,60,670>
+$rect <80,650,320,690>
 $variant $prototyper
 vclass DeviceClassForPrototype : Application::DeviceClass
 {
@@ -1191,10 +1264,10 @@ vclass DeviceClassForPrototype : Application::DeviceClass
 // Device
 note group Note2
 {
-  attr Bounds = <-210,500,240,700>;
+  attr Bounds = <50,520,500,720>;
 }
 
-$rect <330,150,530,190>
+$rect <590,170,790,210>
 $output false
 resource Resources::Bitmap Thumb
 {
@@ -1206,7 +1279,7 @@ resource Resources::Bitmap Thumb
   attr bitmapmode Mode = Default;
 }
 
-$rect <330,70,530,110>
+$rect <590,90,790,130>
 $output false
 resource Resources::Bitmap Track
 {
@@ -1218,7 +1291,7 @@ resource Resources::Bitmap Track
   attr bitmapmode Mode = Default;
 }
 
-$rect <580,29,820,69>
+$rect <840,49,1080,89>
 $output false
 autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
 {
@@ -1236,7 +1309,7 @@ autoobject WidgetSet::HorizontalSliderConfig MyHorizontalSliderConfig
   preset TrackLeftDefault = Application::Track;
 }
 
-$rect <580,69,820,109>
+$rect <840,89,1080,129>
 $output false
 autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
 {
@@ -1254,7 +1327,7 @@ autoobject WidgetSet::VerticalSliderConfig MyVerticalSliderConfig
   preset TrackBelowDefault = Application::TrackVertical;
 }
 
-$rect <329,349,529,389>
+$rect <589,369,789,409>
 $output false
 resource Resources::Bitmap RotaryBackground
 {
@@ -1266,7 +1339,7 @@ resource Resources::Bitmap RotaryBackground
   attr bitmapmode Mode = Default;
 }
 
-$rect <329,389,529,429>
+$rect <589,409,789,449>
 $output false
 resource Resources::Bitmap RotaryThumbMax
 {
@@ -1278,7 +1351,7 @@ resource Resources::Bitmap RotaryThumbMax
   attr bitmapmode Mode = Default;
 }
 
-$rect <600,189,800,229>
+$rect <870,280,1070,320>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
 {
@@ -1308,7 +1381,7 @@ autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
   preset WidgetMinSize = <160,160>;
 }
 
-$rect <320,429,520,469>
+$rect <590,450,790,490>
 $output false
 resource Resources::Bitmap RotaryThumbMin
 {
@@ -1320,7 +1393,7 @@ resource Resources::Bitmap RotaryThumbMin
   attr bitmapmode Mode = Default;
 }
 
-$rect <600,229,800,269>
+$rect <870,320,1070,360>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
 {
@@ -1359,15 +1432,15 @@ autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
 }
 
 // This object contains configuration information for a push button widget.
-$rect <581,109,820,149>
+$rect <841,129,1080,169>
 $output false
 autoobject WidgetSet::PushButtonConfig PushButtonConfig
 {
-  preset IconTintActive = #5EFF42FF;
-  preset IconTintDefault = #5EFF42FF;
+  preset IconTintActive = #F6F9FFFF;
+  preset IconTintDefault = #F6F9FFFF;
   preset FaceLayout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop];
-  preset FaceTintActive = #525252FF;
-  preset FaceTintDefault = #525252FF;
+  preset FaceTintActive = #3D3D3DFF;
+  preset FaceTintDefault = #3D3D3DFF;
   preset FaceFrameActive = 1;
   preset FaceFrameFocused = 0;
   preset FaceFrameDefault = 0;
@@ -1377,7 +1450,7 @@ autoobject WidgetSet::PushButtonConfig PushButtonConfig
   preset FaceDefault = Application::ButtonFace;
 }
 
-$rect <329,229,529,269>
+$rect <589,249,789,289>
 $output false
 resource Resources::Bitmap StopIcon
 {
@@ -1389,17 +1462,17 @@ resource Resources::Bitmap StopIcon
   attr bitmapmode Mode = Default;
 }
 
-$rect <580,149,820,189>
+$rect <840,169,1080,209>
 $output false
 autoobject WidgetSet::PushButtonConfig NavigationButton
 {
   preset LabelColorActive = #2860FFFF;
   preset LabelColorDefault = #1840A3FF;
-  preset IconTintActive = #64FF59FF;
+  preset IconTintActive = #000000FF;
   preset IconTintFocused = #FFFFFFFF;
   preset IconTintDisabled = #FFFFFFFF;
-  preset IconTintDefault = #48B840FF;
-  preset LabelFont = Application::FontBodoniSmall;
+  preset IconTintDefault = #000000FF;
+  preset LabelFont = Application::FontBodoniMedium;
   preset FaceTintActive = #E0F5FFFF;
   preset FaceTintDisabled = #FFFFFFFF;
   preset FaceTintDefault = #F7FFF7FF;
@@ -1407,7 +1480,7 @@ autoobject WidgetSet::PushButtonConfig NavigationButton
   preset FaceDefault = Application::NavigationButtonFace;
 }
 
-$rect <329,309,529,349>
+$rect <589,329,789,369>
 $output false
 resource Resources::Bitmap NavigationButtonFace
 {
@@ -1419,14 +1492,16 @@ resource Resources::Bitmap NavigationButtonFace
   attr bitmapmode Mode = Default;
 }
 
-$rect <880,125,1080,165>
+$rect <1140,200,1340,240>
 autoobject Graphics::AttrSet DarkBlueColor
 {
   preset Bitmap0 = null;
+  preset Color2 = #00000000;
+  preset Color1 = #00000000;
   preset Color0 = #141547FF;
 }
 
-$rect <-240,230,-40,270>
+$rect <20,250,220,290>
 $output false
 class OnePageMetronom : Core::Group
 {
@@ -1686,7 +1761,7 @@ class OnePageMetronom : Core::Group
     preset Bounds = <36,201,154,231>;
     preset ColorBL = #3A61D4FF;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
   }
 
@@ -1695,12 +1770,12 @@ class OnePageMetronom : Core::Group
   {
     preset Bounds = <342,207,442,237>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
   }
 }
 
-$rect <-240,20,-40,60>
+$rect <20,40,220,80>
 $output false
 class NavigationMetronom : Core::Group
 {
@@ -1955,9 +2030,11 @@ class NavigationMetronom : Core::Group
   $rect <520,130,720,170>
   slot onTempoPress
   {
-    var Core::Group tempo = new Application::NavigationTempo;
+    tempo = new Application::NavigationTempo;
     // Present the Dialog now
-    SwitchToDialog( tempo, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+    tempo.OnClose = onTempoClosed;
+
+    SwitchToDialog( tempo, Effects::SlideRightCentered, null, null, null, null, null,
                                 null, null,null,false );
 
   }
@@ -1965,17 +2042,36 @@ class NavigationMetronom : Core::Group
   $rect <520,180,720,220>
   slot onBeatPress
   {
-    var Core::Group beat = new Application::NavigationBeat;
+    beat = new Application::NavigationBeat;
      // Present the Dialog now
-    SwitchToDialog( beat, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+     beat.OnClose = onBeatClosed;
+    SwitchToDialog( beat, Effects::SlideLeftCentered, null, null, null, null, null,
                                null, null,null, false );
 
 
 
   }
+
+  $rect <920,130,1120,170>
+  slot onTempoClosed
+  {
+    DismissDialog( tempo, Effects::SlideLeftCentered, null, null, null, null, false);
+  }
+
+  $rect <720,130,920,170>
+  var Application::NavigationTempo tempo;
+
+  $rect <720,180,920,220>
+  var Application::NavigationBeat beat;
+
+  $rect <920,180,1120,220>
+  slot onBeatClosed
+  {
+    DismissDialog( beat, Effects::SlideRightCentered, null, null, null, null, false);
+  }
 }
 
-$rect <-240,60,-40,100>
+$rect <20,80,220,120>
 $output false
 class NavigationTempo : Core::Group
 {
@@ -2122,7 +2218,7 @@ class NavigationTempo : Core::Group
   {
     preset Bounds = <174,16,291,61>;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -2182,13 +2278,35 @@ class NavigationTempo : Core::Group
   $rect <500,70,700,110>
   slot onCheck
   {
-    var Core::Group metronom= new Application::NavigationMetronom;
-    SwitchToDialog( metronom, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal OnClose;
+  }
+
+  $rect <500,130,700,170>
+  property slot OnClose;
+
+  $rect <551,215,751,255>
+  onset OnClose
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnClose == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnClose = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <551,255,751,295>
+  onget OnClose
+  {
+    return pure OnClose;
   }
 }
 
-$rect <-240,100,-40,140>
+$rect <20,120,220,160>
 $output false
 class NavigationBeat : Core::Group
 {
@@ -2335,7 +2453,7 @@ class NavigationBeat : Core::Group
   {
     preset Bounds = <190,24,290,54>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -2382,10 +2500,7 @@ class NavigationBeat : Core::Group
   $rect <510,50,710,90>
   slot onCheck
   {
-    var Core::Group metronom = new Application::NavigationMetronom;
-
-    SwitchToDialog( metronom, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal OnClose;
   }
 
   $rect <20,20,160,60>
@@ -2397,9 +2512,33 @@ class NavigationBeat : Core::Group
     preset MinValue = 2;
     preset Appearance = Application::MyVerticalSliderConfig;
   }
+
+  $rect <510,110,710,150>
+  property slot OnClose;
+
+  $rect <510,150,710,190>
+  onset OnClose
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnClose == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnClose = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <510,190,710,230>
+  onget OnClose
+  {
+    return pure OnClose;
+  }
 }
 
-$rect <330,530,530,570>
+$rect <600,590,800,630>
 $output false
 resource Resources::Bitmap TrackVertical
 {
@@ -2411,14 +2550,13 @@ resource Resources::Bitmap TrackVertical
   attr bitmapmode Mode = Default;
 }
 
-$rect <30,160,230,200>
+$rect <290,180,490,220>
 $output false
 class Slider : Core::Group
 {
   $rect <490,40,690,80>
   inherited method Init()
   {
-    //idlesignal onInit;
     Outline.ScrollOffset = point( -SliderTempo.Bounds.w, 0 );
   }
 
@@ -2447,12 +2585,6 @@ class Slider : Core::Group
   note legend Note1
   {
     attr Bounds = <10,510,790,740>;
-  }
-
-  $rect <490,80,690,120>
-  slot onInit
-  {
-    //Outline.EnsureVisible( SliderMetronome, true, null, null );
   }
 
   $rect <20,20,160,60>
@@ -2502,139 +2634,12 @@ class Slider : Core::Group
   }
 }
 
-$rect <30,230,230,270>
+$rect <290,250,490,290>
 $output false
 class Application : Core::Root
 {
   $rect <490,0,690,40>
   inherited property Bounds = <0,0,480,272>;
-
-  $rect <10,390,210,430>
-  inherited method UpdateLayout()
-  {
-    // Always invoke the inherited method.
-    super( aSize );
-
-    /*
-
-      HINT:
-
-      This method exists for sophisticated layout calculation. Please note, that in 
-      most cases it is completely sufficient to use the views property 'Layout' to
-      determine how the view should behave when the component is resized.
-
-    */
-
-    /*
-
-      TO DO:
-
-      Put here the code to calculate new position and size of enclosed views. The
-      current (new) size of the component itself is passed in the parameter aSize.
-      For example:
-
-        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
-
-    */
-  }
-
-  $rect <10,350,210,390>
-  inherited method UpdateViewState()
-  {
-    // Always invoke the inherited method.
-    super( aState );
-
-    /*
-
-      HINT 1:
-
-      This method is invoked automatically when the state set of the component has
-      been changed. The new state set can be found in the parameter aState.
-      Following are the important states:
-
-        Enabled   --> The component can react to user inputs.
-
-        Selected  --> The component is selected in context of its owner.
-
-        Focused   --> The component is selected in context of its owner and 
-                      the owner can react to keyboard events. In this manner the
-                      component is also able to react to keyboard events.
-
-        Modal     --> The component is modal. All events are redirected to this
-                      component.
-
-      To determine whether a state is currently active or not you have to test
-      the aState parameter. For example to test the 'Selected' state:
-
-        if ( aState.contains( Core::ViewState[ Selected ]))
-        {
-          ... yes, this component is currently selected.
-        }
-
-    */
-
-    /*
-
-      HINT 2:
-
-      Alternatively you can request this method invocation by executing explicitly
-      following code:
-
-
-        InvalidateViewState();
-
-    */
-      
-    /*
-
-      TO DO 1:
-
-      Put here the code to ensure that the visual aspect of the component does
-      reflect its current state. For example, depending on its 'Enabled' state
-      a component may appear with full colors or pale if it is disabled:
-
-        if ( aState.contains( Core::ViewState[ Enabled ]))
-        {
-          SomeBackgroundView.Opacity = 255;
-          SomeTextView.Color         = #000000FF;
-        }
-        else
-        {
-          SomeBackgroundView.Opacity = 128;
-          SomeTextView.Color         = #00000080;
-        }
-
-
-      TO DO 2:
-
-      You can evaluate here also the state of any other member in your component.
-      For example in a push-button component, the button should appear highlighted
-      as long as the user holds the finger within a touch area of the button:
-
-        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
-          HighlightedBackground.Visible = true;
-        else
-          HighlightedBackground.Visible = false;
-
-      The touch handler itself only requests the update method to be called. Use
-      for this purpose 'InvalidateViewState()' method.
-
-
-      TO DO 3:
-
-      You can calculate here also the position/size of views accordingly to the
-      state of any other member in your component. For example in a slider you
-      can calculate the position of the slider knob from some properties like
-      'SliderValue' and 'SliderRange':
-
-        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
-
-      Changing the 'SliderValue' or 'SliderRange' property should only request
-      the update method to be called. Use for this purpose 'InvalidateViewState()'
-      method.
-
-    */
-  }
 
   $rect <490,50,690,90>
   slot onOpenMenu
@@ -2642,14 +2647,20 @@ class Application : Core::Root
     // In order to avoid race conditions ignore the push button events if there
     // is already a menu presented
     if ( menu != null )
+    {
+      AppContainer.DismissDialog(menu, Application::SlideUpCentered, null, null,  null, null, false );
+      menu = null;
       return;
+      }
 
     // Create a new instance of the menu component
     menu = new Application::SettingsMenu;
     menu.OnOpenNavigaton = onNavigation;
+    menu.onOpenSlider = onSlider;
+    menu.onOpenPage = onOnePage;
 
     // ... and present it by using a fade-in transition
-    AppContainer.PresentDialog( menu, Effects::FadeInOutCentered, null, null, null, null, null, null, null, false );
+    AppContainer.PresentDialog( menu, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
 
 
   }
@@ -2664,16 +2675,47 @@ class Application : Core::Root
     }
 
 
-    var Core::Group page = new Application::Navigation;
+    var Core::Group page = new Application::NavigationMetronom;
 
-    AppContainer.SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
                                 null, null, null,false );
 
 
   }
 
-  $rect <801,194,1001,234>
+  $rect <690,50,890,90>
   var Application::SettingsMenu menu = null;
+
+  $rect <20,20,160,60>
+  object Core::Group wellcom
+  {
+    preset Bounds = <0,0,480,272>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Background
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::MetronomeBackground;
+    preset Opacity = 250;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <109,46,327,180>;
+    preset String = "HELLO";
+    preset Font = Application::FontBodoniLarge;
+    preset Color = #1D729DFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image NotesImage
+  {
+    preset Bounds = <109,59,380,242>;
+    preset Color = #000000FF;
+    preset Bitmap = Application::Notes;
+  }
 
   $rect <20,20,160,60>
   object Core::Group AppContainer
@@ -2684,15 +2726,54 @@ class Application : Core::Root
   $rect <20,20,160,60>
   object WidgetSet::PushButton PushButton
   {
-    preset Bounds = <420,2,477,54>;
+    preset Bounds = <0,0,54,46>;
     preset OnRelease = onOpenMenu;
     preset Icon = Application::MenuFace;
     preset Label = "";
-    preset Appearance = Application::NavigationButton;
+    preset Appearance = Application::MenuButtonConfig;
+  }
+
+  $rect <490,130,690,170>
+  slot onSlider
+  {
+    if ( menu != null )
+    {
+      menu = null;
+    }
+
+
+    var Core::Group page = new Application::Slider;
+
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
+                                null, null, null,false );
+  }
+
+  $rect <490,170,690,210>
+  slot onOnePage
+  {
+    if ( menu != null )
+    {
+        menu = null;
+    }
+
+
+    var Core::Group page = new Application::OnePageMetronom;
+
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
+                                null, null, null,false );
+  }
+
+  $rect <40,320,240,360>
+  object Effects::ColorEffect ColorEffect
+  {
+    preset Enabled = true;
+    preset Value2 = #5481F68C;
+    preset Value1 = #1C38DBF6;
+    preset Outlet = ^Text.Color;
   }
 }
 
-$rect <330,470,530,510>
+$rect <590,490,790,530>
 $output false
 resource Resources::Bitmap MenuFace
 {
@@ -2705,7 +2786,7 @@ resource Resources::Bitmap MenuFace
 }
 
 // This component implements a generic menu.
-$rect <880,230,1080,270>
+$rect <1140,250,1340,290>
 $output false
 class Menu : Templates::Menu
 {
@@ -2749,6 +2830,7 @@ class Menu : Templates::Menu
     var bool isEnabled = aState.contains( Core::ViewState[ Enabled ]);
     var bool isModal   = aState.contains( Core::ViewState[ Modal   ]);
     var bool isFocused = aState.contains( Core::ViewState[ Focused ]);
+
 
 
     /*
@@ -2796,27 +2878,27 @@ class Menu : Templates::Menu
 
     if ( !isEnabled )
     {
-      Background.Color  = #AAAAAAFF;
-      Border.Color      = #444444FF;
-      Border.Width      = 1;
-      CaptionText.Color = #888888FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     else if ( isFocused )
     {
-      Background.Color  = #FFFFFFFF;
-      Border.Color      = #000000FF;
-      Border.Width      = 3;
-      CaptionText.Color = #000000FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     // Enabled but actually not focused for user interaction.
     else
     {
-      Background.Color  = #FFFFFFFF;
-      Border.Color      = #000000FF;
-      Border.Width      = 1;
-      CaptionText.Color = #000000FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     // Remember the current state. Next time when the UpdateViewState() is called
@@ -2964,7 +3046,7 @@ class Menu : Templates::Menu
 
     // Limit the max. menu size to e.g. 60% size of the screen size
     var int32 maxW = ( $ScreenSize.x * 3 ) / 5;
-    var int32 maxH = ( $ScreenSize.y * 3 ) / 5;
+    var int32 maxH = ( $ScreenSize.y * 1 ) / 1;
 
     if ( s.x > maxW ) s.x = maxW;
     if ( s.y > maxH ) s.y = maxH;
@@ -3045,18 +3127,23 @@ class Menu : Templates::Menu
   }
 
   $rect <20,20,160,60>
-  object Views::Rectangle Background
+  object Views::Frame Background
   {
-    preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
+    preset Layout = Core::Layout[AlignToRight, AlignToTop];
     preset Bounds = <0,0,300,220>;
+    preset Color = #E0E0E079;
+    preset Bitmap = Application::ItemFace;
+    preset Opacity = 230;
   }
 
   $rect <20,20,160,60>
-  object Views::Border Border
+  object Views::Frame Border
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,300,220>;
-    preset Width = 3;
+    preset Color = #FFFFFFFF;
+    preset Bitmap = Application::ItemFace;
+    preset Visible = false;
   }
 
   // This is a slide gesture handler. It allows the user to scroll the items within \
@@ -3078,6 +3165,7 @@ class Menu : Templates::Menu
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <10,40,290,210>;
     preset SlideHandler = SlideTouchHandler;
+    preset SpaceVert = 3;
     preset Formation = Core::Formation.TopToBottom;
   }
 
@@ -3087,7 +3175,7 @@ class Menu : Templates::Menu
     preset Layout = Core::Layout[AlignToLeft, AlignToRight, AlignToTop, ResizeHorz];
     preset Bounds = <10,0,290,40>;
     preset String = "Menu";
-    preset Font = Resources::FontMedium;
+    preset Font = Application::FontBodoniSmall;
     preset Color = #000000FF;
   }
 
@@ -3097,7 +3185,7 @@ class Menu : Templates::Menu
 }
 
 // This component implements a simple menu item.
-$rect <880,270,1080,310>
+$rect <1140,290,1340,330>
 $output false
 class MenuItem : Templates::MenuItem
 {
@@ -3193,24 +3281,26 @@ class MenuItem : Templates::MenuItem
 
     if ( !isEnabled )
     {
-      Background.Color  = #AAAAAAFF;
+      Background.Color  = #FFFFFFFF;
       Border.Visible    = false;
       CaptionText.Color = #888888FF;
     }
 
     else if ( isPressed )
     {
-      Background.Color  = #FF0000FF;
+      Background.Color  = #9BBDDEC1;
       Border.Color      = #000000FF;
       Border.Visible    = true;
+      //Border.Width = 1;
       CaptionText.Color = #FFFFFFFF;
     }
 
     else if ( isSelected )
     {
-      Background.Color  = #FFFFFFFF;
+      Background.Color  = #D5EBFFFF;
       Border.Color      = #444444FF;
       Border.Visible    = true;
+      // Border.Width = 1;
       CaptionText.Color = #000000FF;
     }
 
@@ -3454,18 +3544,21 @@ class MenuItem : Templates::MenuItem
   }
 
   $rect <20,20,160,60>
-  object Views::Rectangle Background
+  object Views::Frame Background
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,220,40>;
+    preset Color = #E6E6E6FF;
+    preset Bitmap = Application::ItemFace;
   }
 
   $rect <20,20,160,60>
-  object Views::Border Border
+  object Views::Frame Border
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,220,40>;
-    preset Width = 3;
+    preset Bitmap = Application::ItemFace;
+    preset Visible = false;
   }
 
   // This is a generic touch handler.
@@ -3493,7 +3586,7 @@ class MenuItem : Templates::MenuItem
     preset Ellipsis = true;
     preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
     preset String = "Caption";
-    preset Font = Resources::FontMedium;
+    preset Font = Application::FontBodoniSmall;
     preset Color = #000000FF;
   }
 
@@ -3510,7 +3603,7 @@ class MenuItem : Templates::MenuItem
 
 // This component implements a simple menu item. When activating the item a sub menu \
 // is shown.
-$rect <880,310,1080,350>
+$rect <1140,330,1340,370>
 $output false
 class OpenMenuItem : Templates::OpenMenuItem
 {
@@ -3976,26 +4069,57 @@ class OpenMenuItem : Templates::OpenMenuItem
   property string Caption = "Caption";
 }
 
-$rect <-239,325,-39,365>
+$rect <21,345,221,385>
 $output false
 class SettingsMenu : Application::Menu
 {
+  $rect <610,-100,810,-60>
+  inherited property Layout = Core::Layout[AlignToRight, AlignToTop];
+
+  $rect <590,-20,790,20>
+  inherited property Opacity = 200;
+
+  $rect <20,20,160,60>
+  inherited object Background
+  {
+    preset Bounds = <0,0,282,200>;
+    preset Color = #FF00C7FE;
+    preset Embedded = false;
+    preset Visible = true;
+  }
+
+  $rect <20,20,160,60>
+  inherited object Border
+  {
+    preset Bounds = <0,0,282,200>;
+    preset Visible = false;
+  }
+
+  $rect <20,20,160,60>
+  inherited object SlideTouchHandler
+  {
+    preset Bounds = <10,40,267,192>;
+  }
+
   $rect <20,20,160,60>
   inherited object Outline
   {
-    preset Bounds = <10,40,290,208>;
+    preset Bounds = <10,40,267,192>;
   }
 
   $rect <20,20,160,60>
   inherited object CaptionText
   {
+    preset Bounds = <10,0,267,40>;
     preset String = "Style";
+    preset Opacity = 255;
   }
 
   $rect <20,20,160,60>
   object Application::MenuItem SinglePage
   {
     preset Bounds = <28,45,248,85>;
+    preset Opacity = 200;
     preset OnActivate = onSinglePage;
     preset Caption = "SinglePage";
   }
@@ -4016,36 +4140,36 @@ class SettingsMenu : Application::Menu
     preset Caption = "Slider";
   }
 
-  $rect <343,61,543,101>
+  $rect <850,70,1050,110>
   slot onSinglePage
   {
-    var Core::Group page = new Application::OnePageMetronom;
-
-    SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal onOpenPage;
   }
 
-  $rect <340,110,540,150>
+  $rect <840,160,1040,200>
   slot onNavigation
   {
     signal OnOpenNavigaton;
 
   }
 
-  $rect <340,160,540,200>
+  $rect <840,120,1040,160>
   slot onSlider
   {
-    var Core::Group page = new Application::Slider;
-
-    SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal onOpenSlider;
   }
 
-  $rect <640,0,840,40>
+  $rect <600,110,800,150>
   property slot OnOpenNavigaton;
+
+  $rect <600,160,800,200>
+  property slot onOpenSlider;
+
+  $rect <600,60,800,100>
+  property slot onOpenPage;
 }
 
-$rect <30,310,230,350>
+$rect <290,330,490,370>
 $output false
 class Settings : Core::Group
 {
@@ -4232,4 +4356,121 @@ class Settings : Core::Group
     SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
                                 null, null,null,false );
   }
+}
+
+$rect <840,210,1080,250>
+$output false
+autoobject WidgetSet::PushButtonConfig MenuButtonConfig
+{
+  preset LabelColorActive = #FFFFFF00;
+  preset LabelColorDefault = #FFFFFF00;
+  preset IconTintActive = #6F6F6FFF;
+  preset IconTintDefault = #000000FF;
+  preset IconAlignment = Views::ImageAlignment[AlignHorzCenter, AlignVertCenter];
+  preset FaceTintActive = #414141FF;
+  preset FaceTintDefault = #000000FF;
+}
+
+// Bitmap resource used per default by the Widgets customized for the medium size.
+$rect <1150,400,1430,440>
+$output false
+resource Resources::Bitmap HorizontalScrollbarTrackMedium
+{
+  attr bitmapfile FileName = .\Res\HorizontalScrollbarTrackMedium.png;
+  attr framesize FrameSize = <45,39>;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+// The global autoobject Application::SlideUpCentered1 represents the fade-in/out \
+// operation affecting the position and the opacity of the given GUI component. When \
+// using the transition for the fade-in operation, the GUI component slides from \
+// the bottom edge of its owner component and continues moving vertically until it \
+// reaches the owner's center position. When using the transition for the fade-out \
+// operation, the component slides up until it leaves the visible area of its owner \
+// component. Additionally, while the transitions are performed, the opacity of the \
+// GUI component fades-in or fades-out accordingly. This transition is thus ideal \
+// wherever one GUI component should smoothly slide-in/out in context of another \
+// component. The duration of the transition is configured per default to take 500 \
+// ms and the timing is configured to start fast and then slow down the animation \
+// (FastIn_EaseOut).
+// This object exists for your convenience permitting you to simply refer the transition \
+// wherever it is required in your implementation without having to take care of \
+// the creation and configuration of the object. If you require the transition to \
+// run with other configuration (e.g. other timing parameters), create a copy of \
+// this object and adapt its properties accordingly.
+$rect <860,390,1110,430>
+$output false
+autoobject Effects::SlideTransition SlideUpCentered
+{
+  preset MarginTop = 15;
+  preset MarginLeft = 15;
+  preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+}
+
+// The global autoobject Application::SlideDownCentered represents the fade-in/out \
+// operation affecting the position and the opacity of the given GUI component. When \
+// using the transition for the fade-in operation, the GUI component slides from \
+// the top edge of its owner component and continues moving vertically until it reaches \
+// the owner's center position. When using the transition for the fade-out operation, \
+// the component slides down until it leaves the visible area of its owner component. \
+// Additionally, while the transitions are performed, the opacity of the GUI component \
+// fades-in or fades-out accordingly. This transition is thus ideal wherever one \
+// GUI component should smoothly slide-in/out in context of another component. The \
+// duration of the transition is configured per default to take 500 ms and the timing \
+// is configured to start fast and then slow down the animation (FastIn_EaseOut).
+// This object exists for your convenience permitting you to simply refer the transition \
+// wherever it is required in your implementation without having to take care of \
+// the creation and configuration of the object. If you require the transition to \
+// run with other configuration (e.g. other timing parameters), create a copy of \
+// this object and adapt its properties accordingly.
+$rect <860,440,1110,480>
+$output false
+autoobject Effects::SlideTransition SlideDownCentered
+{
+  preset MarginTop = 15;
+  preset MarginLeft = 15;
+  preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+}
+
+$rect <590,530,790,570>
+$output false
+resource Resources::Bitmap ItemFace
+{
+  attr bitmapfile FileName = .\Res\item.png;
+  attr bitmapformat Format = Alpha8;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1140,150,1340,190>
+$output false
+resource Resources::Font FontBodoniSmall
+{
+  attr fontname FontName = Candara Light;
+  attr fontheight Height = 20;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = true;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <880,500,1080,540>
+$output false
+resource Resources::Bitmap Notes
+{
+  attr bitmapfile FileName = .\Res\notes.png;
+  attr bitmapformat Format = Alpha8;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
 }

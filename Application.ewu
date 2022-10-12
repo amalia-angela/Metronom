@@ -174,7 +174,7 @@ class SliderTempo : Core::Group
   {
     preset Bounds = <174,16,291,61>;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -234,9 +234,9 @@ resource Resources::Bitmap MetronomeBackground
 
 $rect <1140,49,1340,89>
 $output false
-resource Resources::Font FontBodoni
+resource Resources::Font FontBodoniLarge
 {
-  attr fontname FontName = Bodoni MT;
+  attr fontname FontName = Candara Light;
   attr fontheight Height = 32;
   attr fontheightmode HeightMode = Popular;
   attr fontquality Quality = High;
@@ -407,7 +407,7 @@ class SliderBeat : Core::Group
   {
     preset Bounds = <190,24,290,54>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -676,7 +676,7 @@ class SliderMetronome : Core::Group
     preset Bounds = <36,201,154,231>;
     preset ColorBL = #3A61D4FF;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
     preset Visible = false;
   }
@@ -686,7 +686,7 @@ class SliderMetronome : Core::Group
   {
     preset Bounds = <342,207,442,237>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
     preset Visible = false;
   }
@@ -694,9 +694,9 @@ class SliderMetronome : Core::Group
 
 $rect <1140,100,1340,140>
 $output false
-resource Resources::Font FontBodoniSmall
+resource Resources::Font FontBodoniMedium
 {
-  attr fontname FontName = Bodoni MT;
+  attr fontname FontName = Candara Light;
   attr fontheight Height = 25;
   attr fontheightmode HeightMode = Popular;
   attr fontquality Quality = High;
@@ -729,7 +729,7 @@ note group Note
 // Assets
 note group Note1
 {
-  attr Bounds = <580,10,1410,600>;
+  attr Bounds = <580,10,1410,650>;
 }
 
 $rect <589,289,789,329>
@@ -737,7 +737,7 @@ $output false
 resource Resources::Bitmap ButtonFace
 {
   attr bitmapfile FileName = .\Res\ButtonFace.png;
-  attr bitmapformat Format = Native;
+  attr bitmapformat Format = Alpha8;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
   attr bitmapdithering Dithering = Auto;
@@ -1351,7 +1351,7 @@ resource Resources::Bitmap RotaryThumbMax
   attr bitmapmode Mode = Default;
 }
 
-$rect <860,209,1060,249>
+$rect <870,280,1070,320>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
 {
@@ -1381,7 +1381,7 @@ autoobject WidgetSet::RotaryKnobConfig RotaryMaxConfig
   preset WidgetMinSize = <160,160>;
 }
 
-$rect <580,449,780,489>
+$rect <590,450,790,490>
 $output false
 resource Resources::Bitmap RotaryThumbMin
 {
@@ -1393,7 +1393,7 @@ resource Resources::Bitmap RotaryThumbMin
   attr bitmapmode Mode = Default;
 }
 
-$rect <860,249,1060,289>
+$rect <870,320,1070,360>
 $output false
 autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
 {
@@ -1436,11 +1436,11 @@ $rect <841,129,1080,169>
 $output false
 autoobject WidgetSet::PushButtonConfig PushButtonConfig
 {
-  preset IconTintActive = #5EFF42FF;
-  preset IconTintDefault = #5EFF42FF;
+  preset IconTintActive = #F6F9FFFF;
+  preset IconTintDefault = #F6F9FFFF;
   preset FaceLayout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop];
-  preset FaceTintActive = #525252FF;
-  preset FaceTintDefault = #525252FF;
+  preset FaceTintActive = #3D3D3DFF;
+  preset FaceTintDefault = #3D3D3DFF;
   preset FaceFrameActive = 1;
   preset FaceFrameFocused = 0;
   preset FaceFrameDefault = 0;
@@ -1468,11 +1468,11 @@ autoobject WidgetSet::PushButtonConfig NavigationButton
 {
   preset LabelColorActive = #2860FFFF;
   preset LabelColorDefault = #1840A3FF;
-  preset IconTintActive = #64FF59FF;
+  preset IconTintActive = #000000FF;
   preset IconTintFocused = #FFFFFFFF;
   preset IconTintDisabled = #FFFFFFFF;
-  preset IconTintDefault = #48B840FF;
-  preset LabelFont = Application::FontBodoniSmall;
+  preset IconTintDefault = #000000FF;
+  preset LabelFont = Application::FontBodoniMedium;
   preset FaceTintActive = #E0F5FFFF;
   preset FaceTintDisabled = #FFFFFFFF;
   preset FaceTintDefault = #F7FFF7FF;
@@ -1492,10 +1492,12 @@ resource Resources::Bitmap NavigationButtonFace
   attr bitmapmode Mode = Default;
 }
 
-$rect <1140,145,1340,185>
+$rect <1140,200,1340,240>
 autoobject Graphics::AttrSet DarkBlueColor
 {
   preset Bitmap0 = null;
+  preset Color2 = #00000000;
+  preset Color1 = #00000000;
   preset Color0 = #141547FF;
 }
 
@@ -1759,7 +1761,7 @@ class OnePageMetronom : Core::Group
     preset Bounds = <36,201,154,231>;
     preset ColorBL = #3A61D4FF;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
   }
 
@@ -1768,7 +1770,7 @@ class OnePageMetronom : Core::Group
   {
     preset Bounds = <342,207,442,237>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #3A61D4FF;
   }
 }
@@ -2028,9 +2030,11 @@ class NavigationMetronom : Core::Group
   $rect <520,130,720,170>
   slot onTempoPress
   {
-    var Core::Group tempo = new Application::NavigationTempo;
+    tempo = new Application::NavigationTempo;
     // Present the Dialog now
-    SwitchToDialog( tempo, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+    tempo.OnClose = onTempoClosed;
+
+    SwitchToDialog( tempo, Effects::SlideRightCentered, null, null, null, null, null,
                                 null, null,null,false );
 
   }
@@ -2038,13 +2042,32 @@ class NavigationMetronom : Core::Group
   $rect <520,180,720,220>
   slot onBeatPress
   {
-    var Core::Group beat = new Application::NavigationBeat;
+    beat = new Application::NavigationBeat;
      // Present the Dialog now
-    SwitchToDialog( beat, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+     beat.OnClose = onBeatClosed;
+    SwitchToDialog( beat, Effects::SlideLeftCentered, null, null, null, null, null,
                                null, null,null, false );
 
 
 
+  }
+
+  $rect <920,130,1120,170>
+  slot onTempoClosed
+  {
+    DismissDialog( tempo, Effects::SlideLeftCentered, null, null, null, null, false);
+  }
+
+  $rect <720,130,920,170>
+  var Application::NavigationTempo tempo;
+
+  $rect <720,180,920,220>
+  var Application::NavigationBeat beat;
+
+  $rect <920,180,1120,220>
+  slot onBeatClosed
+  {
+    DismissDialog( beat, Effects::SlideRightCentered, null, null, null, null, false);
   }
 }
 
@@ -2195,7 +2218,7 @@ class NavigationTempo : Core::Group
   {
     preset Bounds = <174,16,291,61>;
     preset String = "TEMPO";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -2255,9 +2278,31 @@ class NavigationTempo : Core::Group
   $rect <500,70,700,110>
   slot onCheck
   {
-    var Core::Group metronom= new Application::NavigationMetronom;
-    SwitchToDialog( metronom, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal OnClose;
+  }
+
+  $rect <500,130,700,170>
+  property slot OnClose;
+
+  $rect <551,215,751,255>
+  onset OnClose
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnClose == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnClose = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <551,255,751,295>
+  onget OnClose
+  {
+    return pure OnClose;
   }
 }
 
@@ -2408,7 +2453,7 @@ class NavigationBeat : Core::Group
   {
     preset Bounds = <190,24,290,54>;
     preset String = "BEAT";
-    preset Font = Application::FontBodoni;
+    preset Font = Application::FontBodoniLarge;
     preset Color = #2864FFFF;
   }
 
@@ -2455,10 +2500,7 @@ class NavigationBeat : Core::Group
   $rect <510,50,710,90>
   slot onCheck
   {
-    var Core::Group metronom = new Application::NavigationMetronom;
-
-    SwitchToDialog( metronom, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal OnClose;
   }
 
   $rect <20,20,160,60>
@@ -2470,9 +2512,33 @@ class NavigationBeat : Core::Group
     preset MinValue = 2;
     preset Appearance = Application::MyVerticalSliderConfig;
   }
+
+  $rect <510,110,710,150>
+  property slot OnClose;
+
+  $rect <510,150,710,190>
+  onset OnClose
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnClose == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnClose = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <510,190,710,230>
+  onget OnClose
+  {
+    return pure OnClose;
+  }
 }
 
-$rect <590,550,790,590>
+$rect <600,590,800,630>
 $output false
 resource Resources::Bitmap TrackVertical
 {
@@ -2581,14 +2647,20 @@ class Application : Core::Root
     // In order to avoid race conditions ignore the push button events if there
     // is already a menu presented
     if ( menu != null )
+    {
+      AppContainer.DismissDialog(menu, Application::SlideUpCentered, null, null,  null, null, false );
+      menu = null;
       return;
+      }
 
     // Create a new instance of the menu component
     menu = new Application::SettingsMenu;
     menu.OnOpenNavigaton = onNavigation;
+    menu.onOpenSlider = onSlider;
+    menu.onOpenPage = onOnePage;
 
     // ... and present it by using a fade-in transition
-    AppContainer.PresentDialog( menu, Effects::FadeInOutCentered, null, null, null, null, null, null, null, false );
+    AppContainer.PresentDialog( menu, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
 
 
   }
@@ -2603,9 +2675,9 @@ class Application : Core::Root
     }
 
 
-    var Core::Group page = new Application::Navigation;
+    var Core::Group page = new Application::NavigationMetronom;
 
-    AppContainer.SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
                                 null, null, null,false );
 
 
@@ -2613,6 +2685,29 @@ class Application : Core::Root
 
   $rect <690,50,890,90>
   var Application::SettingsMenu menu = null;
+
+  $rect <20,20,160,60>
+  object Core::Group wellcom
+  {
+    preset Bounds = <0,0,480,272>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Background
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::MetronomeBackground;
+    preset Opacity = 250;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <109,46,327,180>;
+    preset String = "HELLO";
+    preset Font = Application::FontBodoniLarge;
+    preset Color = #1D729DFF;
+  }
 
   $rect <20,20,160,60>
   object Core::Group AppContainer
@@ -2623,11 +2718,50 @@ class Application : Core::Root
   $rect <20,20,160,60>
   object WidgetSet::PushButton PushButton
   {
-    preset Bounds = <420,2,477,54>;
+    preset Bounds = <0,0,54,46>;
     preset OnRelease = onOpenMenu;
     preset Icon = Application::MenuFace;
     preset Label = "";
-    preset Appearance = Application::NavigationButton;
+    preset Appearance = Application::MenuButtonConfig;
+  }
+
+  $rect <490,130,690,170>
+  slot onSlider
+  {
+    if ( menu != null )
+    {
+      menu = null;
+    }
+
+
+    var Core::Group page = new Application::Slider;
+
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
+                                null, null, null,false );
+  }
+
+  $rect <490,170,690,210>
+  slot onOnePage
+  {
+    if ( menu != null )
+    {
+        menu = null;
+    }
+
+
+    var Core::Group page = new Application::OnePageMetronom;
+
+    AppContainer.SwitchToDialog( page, Effects::SlideUpCentered, Effects::SlideUpCentered, null, null, null, null,
+                                null, null, null,false );
+  }
+
+  $rect <40,320,240,360>
+  object Effects::ColorEffect ColorEffect
+  {
+    preset Enabled = true;
+    preset Value2 = #5481F68C;
+    preset Value1 = #1C38DBF6;
+    preset Outlet = ^Text.Color;
   }
 }
 
@@ -2690,6 +2824,7 @@ class Menu : Templates::Menu
     var bool isFocused = aState.contains( Core::ViewState[ Focused ]);
 
 
+
     /*
 
       TO DO:
@@ -2735,27 +2870,27 @@ class Menu : Templates::Menu
 
     if ( !isEnabled )
     {
-      Background.Color  = #AAAAAAFF;
-      Border.Color      = #444444FF;
-      Border.Width      = 1;
-      CaptionText.Color = #888888FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     else if ( isFocused )
     {
-      Background.Color  = #FFFFFFFF;
-      Border.Color      = #000000FF;
-      Border.Width      = 3;
-      CaptionText.Color = #000000FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     // Enabled but actually not focused for user interaction.
     else
     {
-      Background.Color  = #FFFFFFFF;
-      Border.Color      = #000000FF;
-      Border.Width      = 1;
-      CaptionText.Color = #000000FF;
+      Background.Color  = #A4B5C4C4;
+      Border.Color      = #00000000;
+      Border.Visible    = false;
+      CaptionText.Color = #323232FF;
     }
 
     // Remember the current state. Next time when the UpdateViewState() is called
@@ -2903,7 +3038,7 @@ class Menu : Templates::Menu
 
     // Limit the max. menu size to e.g. 60% size of the screen size
     var int32 maxW = ( $ScreenSize.x * 3 ) / 5;
-    var int32 maxH = ( $ScreenSize.y * 3 ) / 5;
+    var int32 maxH = ( $ScreenSize.y * 1 ) / 1;
 
     if ( s.x > maxW ) s.x = maxW;
     if ( s.y > maxH ) s.y = maxH;
@@ -2984,18 +3119,23 @@ class Menu : Templates::Menu
   }
 
   $rect <20,20,160,60>
-  object Views::Rectangle Background
+  object Views::Frame Background
   {
-    preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
+    preset Layout = Core::Layout[AlignToRight, AlignToTop];
     preset Bounds = <0,0,300,220>;
+    preset Color = #E0E0E079;
+    preset Bitmap = Application::ItemFace;
+    preset Opacity = 230;
   }
 
   $rect <20,20,160,60>
-  object Views::Border Border
+  object Views::Frame Border
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,300,220>;
-    preset Width = 3;
+    preset Color = #FFFFFFFF;
+    preset Bitmap = Application::ItemFace;
+    preset Visible = false;
   }
 
   // This is a slide gesture handler. It allows the user to scroll the items within \
@@ -3017,6 +3157,7 @@ class Menu : Templates::Menu
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <10,40,290,210>;
     preset SlideHandler = SlideTouchHandler;
+    preset SpaceVert = 3;
     preset Formation = Core::Formation.TopToBottom;
   }
 
@@ -3026,7 +3167,7 @@ class Menu : Templates::Menu
     preset Layout = Core::Layout[AlignToLeft, AlignToRight, AlignToTop, ResizeHorz];
     preset Bounds = <10,0,290,40>;
     preset String = "Menu";
-    preset Font = Resources::FontMedium;
+    preset Font = Application::FontBodoniSmall;
     preset Color = #000000FF;
   }
 
@@ -3132,24 +3273,26 @@ class MenuItem : Templates::MenuItem
 
     if ( !isEnabled )
     {
-      Background.Color  = #AAAAAAFF;
+      Background.Color  = #FFFFFFFF;
       Border.Visible    = false;
       CaptionText.Color = #888888FF;
     }
 
     else if ( isPressed )
     {
-      Background.Color  = #FF0000FF;
+      Background.Color  = #9BBDDEC1;
       Border.Color      = #000000FF;
       Border.Visible    = true;
+      //Border.Width = 1;
       CaptionText.Color = #FFFFFFFF;
     }
 
     else if ( isSelected )
     {
-      Background.Color  = #FFFFFFFF;
+      Background.Color  = #D5EBFFFF;
       Border.Color      = #444444FF;
       Border.Visible    = true;
+      // Border.Width = 1;
       CaptionText.Color = #000000FF;
     }
 
@@ -3393,18 +3536,21 @@ class MenuItem : Templates::MenuItem
   }
 
   $rect <20,20,160,60>
-  object Views::Rectangle Background
+  object Views::Frame Background
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,220,40>;
+    preset Color = #E6E6E6FF;
+    preset Bitmap = Application::ItemFace;
   }
 
   $rect <20,20,160,60>
-  object Views::Border Border
+  object Views::Frame Border
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,220,40>;
-    preset Width = 3;
+    preset Bitmap = Application::ItemFace;
+    preset Visible = false;
   }
 
   // This is a generic touch handler.
@@ -3432,7 +3578,7 @@ class MenuItem : Templates::MenuItem
     preset Ellipsis = true;
     preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
     preset String = "Caption";
-    preset Font = Resources::FontMedium;
+    preset Font = Application::FontBodoniSmall;
     preset Color = #000000FF;
   }
 
@@ -3919,22 +4065,53 @@ $rect <21,345,221,385>
 $output false
 class SettingsMenu : Application::Menu
 {
+  $rect <610,-100,810,-60>
+  inherited property Layout = Core::Layout[AlignToRight, AlignToTop];
+
+  $rect <590,-20,790,20>
+  inherited property Opacity = 200;
+
+  $rect <20,20,160,60>
+  inherited object Background
+  {
+    preset Bounds = <0,0,282,200>;
+    preset Color = #FF00C7FE;
+    preset Embedded = false;
+    preset Visible = true;
+  }
+
+  $rect <20,20,160,60>
+  inherited object Border
+  {
+    preset Bounds = <0,0,282,200>;
+    preset Visible = false;
+  }
+
+  $rect <20,20,160,60>
+  inherited object SlideTouchHandler
+  {
+    preset Bounds = <10,40,267,192>;
+  }
+
   $rect <20,20,160,60>
   inherited object Outline
   {
-    preset Bounds = <10,40,290,208>;
+    preset Bounds = <10,40,267,192>;
   }
 
   $rect <20,20,160,60>
   inherited object CaptionText
   {
+    preset Bounds = <10,0,267,40>;
     preset String = "Style";
+    preset Opacity = 255;
   }
 
   $rect <20,20,160,60>
   object Application::MenuItem SinglePage
   {
     preset Bounds = <28,45,248,85>;
+    preset Opacity = 200;
     preset OnActivate = onSinglePage;
     preset Caption = "SinglePage";
   }
@@ -3955,33 +4132,33 @@ class SettingsMenu : Application::Menu
     preset Caption = "Slider";
   }
 
-  $rect <343,61,543,101>
+  $rect <850,70,1050,110>
   slot onSinglePage
   {
-    var Core::Group page = new Application::OnePageMetronom;
-
-    SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal onOpenPage;
   }
 
-  $rect <340,110,540,150>
+  $rect <840,160,1040,200>
   slot onNavigation
   {
     signal OnOpenNavigaton;
 
   }
 
-  $rect <340,160,540,200>
+  $rect <840,120,1040,160>
   slot onSlider
   {
-    var Core::Group page = new Application::Slider;
-
-    SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
-                                null, null,null,false );
+    signal onOpenSlider;
   }
 
-  $rect <640,0,840,40>
+  $rect <600,110,800,150>
   property slot OnOpenNavigaton;
+
+  $rect <600,160,800,200>
+  property slot onOpenSlider;
+
+  $rect <600,60,800,100>
+  property slot onOpenPage;
 }
 
 $rect <290,330,490,370>
@@ -4171,4 +4348,109 @@ class Settings : Core::Group
     SwitchToDialog( page, Effects::FadeInOutCentered, Effects::FadeInOutCentered, null, null, null, null,
                                 null, null,null,false );
   }
+}
+
+$rect <840,210,1080,250>
+$output false
+autoobject WidgetSet::PushButtonConfig MenuButtonConfig
+{
+  preset LabelColorActive = #FFFFFF00;
+  preset LabelColorDefault = #FFFFFF00;
+  preset IconTintActive = #6F6F6FFF;
+  preset IconTintDefault = #000000FF;
+  preset IconAlignment = Views::ImageAlignment[AlignHorzCenter, AlignVertCenter];
+  preset FaceTintActive = #414141FF;
+  preset FaceTintDefault = #000000FF;
+}
+
+// Bitmap resource used per default by the Widgets customized for the medium size.
+$rect <1150,400,1430,440>
+$output false
+resource Resources::Bitmap HorizontalScrollbarTrackMedium
+{
+  attr bitmapfile FileName = .\Res\HorizontalScrollbarTrackMedium.png;
+  attr framesize FrameSize = <45,39>;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Alpha8;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+// The global autoobject Application::SlideUpCentered1 represents the fade-in/out \
+// operation affecting the position and the opacity of the given GUI component. When \
+// using the transition for the fade-in operation, the GUI component slides from \
+// the bottom edge of its owner component and continues moving vertically until it \
+// reaches the owner's center position. When using the transition for the fade-out \
+// operation, the component slides up until it leaves the visible area of its owner \
+// component. Additionally, while the transitions are performed, the opacity of the \
+// GUI component fades-in or fades-out accordingly. This transition is thus ideal \
+// wherever one GUI component should smoothly slide-in/out in context of another \
+// component. The duration of the transition is configured per default to take 500 \
+// ms and the timing is configured to start fast and then slow down the animation \
+// (FastIn_EaseOut).
+// This object exists for your convenience permitting you to simply refer the transition \
+// wherever it is required in your implementation without having to take care of \
+// the creation and configuration of the object. If you require the transition to \
+// run with other configuration (e.g. other timing parameters), create a copy of \
+// this object and adapt its properties accordingly.
+$rect <860,390,1110,430>
+$output false
+autoobject Effects::SlideTransition SlideUpCentered
+{
+  preset MarginTop = 15;
+  preset MarginLeft = 15;
+  preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+}
+
+// The global autoobject Application::SlideDownCentered represents the fade-in/out \
+// operation affecting the position and the opacity of the given GUI component. When \
+// using the transition for the fade-in operation, the GUI component slides from \
+// the top edge of its owner component and continues moving vertically until it reaches \
+// the owner's center position. When using the transition for the fade-out operation, \
+// the component slides down until it leaves the visible area of its owner component. \
+// Additionally, while the transitions are performed, the opacity of the GUI component \
+// fades-in or fades-out accordingly. This transition is thus ideal wherever one \
+// GUI component should smoothly slide-in/out in context of another component. The \
+// duration of the transition is configured per default to take 500 ms and the timing \
+// is configured to start fast and then slow down the animation (FastIn_EaseOut).
+// This object exists for your convenience permitting you to simply refer the transition \
+// wherever it is required in your implementation without having to take care of \
+// the creation and configuration of the object. If you require the transition to \
+// run with other configuration (e.g. other timing parameters), create a copy of \
+// this object and adapt its properties accordingly.
+$rect <860,440,1110,480>
+$output false
+autoobject Effects::SlideTransition SlideDownCentered
+{
+  preset MarginTop = 15;
+  preset MarginLeft = 15;
+  preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+}
+
+$rect <590,530,790,570>
+$output false
+resource Resources::Bitmap ItemFace
+{
+  attr bitmapfile FileName = .\Res\item.png;
+  attr bitmapformat Format = Alpha8;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1140,150,1340,190>
+$output false
+resource Resources::Font FontBodoniSmall
+{
+  attr fontname FontName = Candara Light;
+  attr fontheight Height = 20;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = true;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
 }
