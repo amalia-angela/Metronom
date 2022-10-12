@@ -100,8 +100,8 @@ unit Templates
   attr Directory = $Mosaic\;
 }
 
-$rect <510,190,710,230>
-unit Unit
+$rect <526,187,726,227>
+unit Res
 {
   attr Directory = .\;
 }

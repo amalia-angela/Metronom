@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application;
+attr active = Res;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,1>;
-attr codeInspector = Application::Application.onOpenMenu;
-attr codeSelEnd = <6,11>;
-attr codeSelStart = <6,11>;
+attr codeFirstPos = <0,0>;
+attr codeInspector = Application::SettingsMenu.onNavigation;
+attr codeSelEnd = <0,0>;
+attr codeSelStart = <0,0>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -23,51 +23,30 @@ attr heapMonitor_Show = false;
 attr language = Default;
 attr profile = Profile;
 attr profilerMonitor_Show = false;
-attr search_CaseSensitive = true;
-attr search_History = Application::MetronomeBackground;
-attr search_IgnoreDescription = true;
-attr search_IgnoreMosaic = true;
+attr search_CaseSensitive = false;
+attr search_IgnoreDescription = false;
+attr search_IgnoreMosaic = false;
 attr search_LimitToComposer = false;
-attr search_WholeWords = true;
+attr search_WholeWords = false;
 attr search_WildCards = false;
 
 view Project
 {
-  attr aspectRatio = 1.0;
-  attr enableGrid = true;
   attr enableWireMode = false;
-  attr grid = 10;
-  attr scrollTo = <-7,-36>;
+  attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
 view unit Application
 {
   attr enableWireMode = false;
-  attr scrollTo = <-37,-7>;
+  attr scrollTo = <-37,-68>;
   attr zoom = 1.0;
 }
 
-view class Application::Application
+view unit Res
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,1>;
-  attr codeInspector = onOpenMenu;
-  attr codeSelEnd = <6,11>;
-  attr codeSelStart = <6,11>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::MenuItem
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = GetMinimalSize;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
+  attr scrollTo = <-50,-55>;
   attr zoom = 1.0;
 }

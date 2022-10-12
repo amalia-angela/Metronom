@@ -79,7 +79,7 @@ profile Profile : Tara.Win32.RGBA8888
   attr Verbose = false;
   attr ScreenSize = <480,272>;
   attr Optimization = High;
-  attr ApplicationClass = Application::Slider;
+  attr ApplicationClass = Application::Application;
   attr CleanOutputDirectories = false;
   attr FontConversion = Windows;
   attr OutputFileNameExtension = c;
