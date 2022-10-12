@@ -210,7 +210,7 @@ class SliderMetronome : Core::Group
     preset String = "TEMPO";
     preset Font = Res::FontBodoniLarge;
     preset Color = #3A61D4FF;
-    preset Visible = false;
+    preset Visible = true;
   }
 
   $rect <20,20,160,60>
@@ -220,7 +220,7 @@ class SliderMetronome : Core::Group
     preset String = "BEAT";
     preset Font = Res::FontBodoniLarge;
     preset Color = #3A61D4FF;
-    preset Visible = false;
+    preset Visible = true;
   }
 
   // Touch screen events
@@ -1404,7 +1404,7 @@ class Slider : Core::Group
     preset SlideVert = false;
     preset RubberBandEffectElasticity = 100.0;
     preset RubberBandEffectDuration = 100;
-    preset RetargetDelay = 300;
+    preset RetargetDelay = 100;
     preset RetargetCondition = Core::RetargetReason[LongPress];
     preset Friction = 1.0;
     preset Embedded = false;
@@ -2429,6 +2429,7 @@ autoobject Effects::SlideTransition SlideUpCentered
   preset MarginTop = 15;
   preset MarginLeft = 15;
   preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+  preset Duration = 600;
 }
 
 // The global autoobject Application::SlideDownCentered represents the fade-in/out \
@@ -2454,6 +2455,8 @@ autoobject Effects::SlideTransition SlideDownCentered
   preset MarginTop = 15;
   preset MarginLeft = 15;
   preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
+  preset Duration = 600;
+  preset Direction = Core::Direction.None;
 }
 
 // Effects

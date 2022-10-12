@@ -1,10 +1,10 @@
 $version 1.0
 
-attr active = Res;
+attr active = Application::OnePageMetronom;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::SettingsMenu.onNavigation;
+attr codeInspector = Application::OnePageMetronom.onStartButtonPress;
 attr codeSelEnd = <0,0>;
 attr codeSelStart = <0,0>;
 attr connectInspectors = false;
@@ -48,5 +48,24 @@ view unit Res
 {
   attr enableWireMode = false;
   attr scrollTo = <-50,-55>;
+  attr zoom = 1.0;
+}
+
+view class Application::Slider
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::OnePageMetronom
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onStartButtonPress;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }

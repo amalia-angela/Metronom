@@ -1065,9 +1065,11 @@ class NavigationMetronom : Core::Group
   $rect <10,350,210,390>
   slot onStartButtonPress
   {
-    Application::Device.Running= !   Application::Device.Running;
+    //if button is pressed it changes sate from start/stop and icon PlayIcon/StopIcon
 
-    PushButton.Icon= Application::Device.Running ? Res::StopIcon : Res::PlayIcon ;
+    Application::Device.Running = !   Application::Device.Running;
+
+    PushButton.Icon = Application::Device.Running ? Res::StopIcon : Res::PlayIcon ;
 
 
 
@@ -1077,11 +1079,11 @@ class NavigationMetronom : Core::Group
   slot onTempoPress
   {
     tempo = new Application::NavigationTempo;
-    // Present the Dialog now
+
     tempo.OnCheck = onTempoClosed;
 
-    SwitchToDialog( tempo, Effects::SlideRightCentered, null, null, null, null, null,
-                                null, null,null,false );
+    SwitchToDialog ( tempo, Effects::SlideRightCentered, null, null, null, null, null,
+                                null, null, null, false );
 
   }
 
@@ -1089,10 +1091,11 @@ class NavigationMetronom : Core::Group
   slot onBeatPress
   {
     beat = new Application::NavigationBeat;
-     // Present the Dialog now
-     beat.OnCheck = onBeatClosed;
+
+    beat.OnCheck = onBeatClosed;
+
     SwitchToDialog( beat, Effects::SlideLeftCentered, null, null, null, null, null,
-                               null, null,null, false );
+                               null, null, null, false );
 
 
 
@@ -1320,7 +1323,7 @@ class NavigationBeat : Core::Group
   $rect <230,360,430,400>
   property slot OnCheck;
 
-  $rect <230,400,430,440>
+  $rect <270,400,470,440>
   onset OnCheck
   {
     // The value doesn't change - nothing to do.
@@ -1335,7 +1338,7 @@ class NavigationBeat : Core::Group
     // Now you can handle the alternation of the property.
   }
 
-  $rect <230,440,430,480>
+  $rect <270,440,470,480>
   onget OnCheck
   {
     return pure OnCheck;
@@ -1344,7 +1347,7 @@ class NavigationBeat : Core::Group
   // Touch screen events
   note group Note
   {
-    attr Bounds = <10,310,450,510>;
+    attr Bounds = <10,310,500,510>;
   }
 }
 
@@ -2055,48 +2058,6 @@ class MenuItem : Templates::MenuItem
   note group Note6
   {
     attr Bounds = <930,150,1150,240>;
-  }
-
-  // To do:
-  // 
-  // - Adjust the visible size of your item (the thick blue border). This will be \
-  // the item's default size.
-  // - Resize the member 'TouchHandler' so it still fills the items's new area.
-  // - Remove the 'Background' and 'Border' members if you want other views to be \
-  // shown instead these in your item.
-  // - If you don't want the caption text to be shown, remove also the members 'CaptionText' \
-  // and the property 'Caption' together with its 'OnSetCaption' method.
-  // - According to your desired item design add and configure new views (e.g. an \
-  // image view to show an icon in the item, etc.).
-  // - Adapt the implementation of the 'UpdateViewState()' method. This method should \
-  // update your views so they reflect the item's current state.
-  // - You can also add and configure animation effects to your item. See 'UpdateViewState()' \
-  // implementation for hint how to start the effects.
-  // - Arrange and resize the views so they appear correctly within the visible area \
-  // of your item.
-  // - Configure the property 'Layout' of the views. In this manner you can determine \
-  // for every view how it should move/resize when the item itself is resized.
-  // - Adapt the method GetMinimalSize(). The method should calculate the minimal \
-  // width the item will occupy within the menu.
-  // - Configure the property 'Filter' of the 'KeyHandler' member if you want the \
-  // item to be activated with key other than the 'Enter' key.
-  // - Alternatively remove the members 'KeyHandler' and 'onPressKey' if you don't \
-  // want any keyboard handling.
-  // - Configure the property 'Begin' of the 'FlashTimer' member to change the duration \
-  // of the feedback flash effect. The default duration is 50 millisec.
-  // - From the Gallery folder 'Chora' add properties to your item. One property \
-  // for every item specific setting (e.g. 'Icon', 'Color', ...)
-  // - Rename the properties accordingly their usage and remove their 'OnGet...' \
-  // methods.
-  // - For every newly added property adapt their 'OnSet...' method implementation. \
-  // Ensure in the method that the assigned value is correctly passed to the corresponding \
-  // view (e.g. a property 'Icon' should update the image view in your item where \
-  // the icon is shown).
-  // - Feel free to modify any other member in this component accordingly your needs. \
-  // Please note the member description and inline comments within methods.
-  note legend Note5
-  {
-    attr Bounds = <10,370,990,780>;
   }
 
   // State management
