@@ -16,6 +16,13 @@ class SlidingTempo : Core::Group
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
+  }
+
+  $rect <20,20,160,60>
   object Views::Text Text
   {
     preset Bounds = <174,16,291,61>;
@@ -35,7 +42,7 @@ class SlidingTempo : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay ValueDisplay
   {
-    preset Bounds = <91,111,291,161>;
+    preset Bounds = <195,120,285,170>;
     preset Outlet = ^Application::Device.Tempo;
     preset Unit = "";
     preset Precision = 0;
@@ -82,6 +89,13 @@ class SlidingBeat : Core::Group
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
+  }
+
+  $rect <20,20,160,60>
   object Views::Text Text
   {
     preset Bounds = <190,24,290,54>;
@@ -101,7 +115,8 @@ class SlidingBeat : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay ValueDisplay
   {
-    preset Bounds = <97,127,297,159>;
+    preset Layout = Core::Layout[AlignToLeft, AlignToTop];
+    preset Bounds = <230,126,290,158>;
     preset Outlet = ^Application::Device.Beat;
     preset Unit = "";
     preset Precision = 0;
@@ -142,6 +157,13 @@ class SlidingMain : Core::Group
     preset Bounds = <0,0,480,272>;
     preset Bitmap = Res::MetronomeBackground;
     preset Opacity = 250;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
   }
 
   $rect <20,20,160,60>
@@ -422,7 +444,7 @@ class DeviceClass : Templates::DeviceClass
   // about an alternation of its setting or state value.
   $rect <0,90,200,130>
   $output true
-  method void UpdateRunning( arg int32 aNewValue )
+  method void UpdateRunning( arg bool aNewValue )
   {
     // Only if the reported value does differ from the one stored currently in the property.
     if ( aNewValue != pure Running )
@@ -689,7 +711,7 @@ class DeviceClass : Templates::DeviceClass
   }
 }
 
-$rect <770,340,1000,380>
+$rect <530,440,760,480>
 autoobject Application::DeviceClass Device;
 
 $rect <530,390,760,430>
@@ -725,7 +747,7 @@ vclass DeviceClassForPrototype : Application::DeviceClass
 // Device
 note group Note2
 {
-  attr Bounds = <510,300,1020,460>;
+  attr Bounds = <510,300,800,490>;
 }
 
 $rect <830,140,1090,180>
@@ -833,15 +855,19 @@ autoobject WidgetSet::RotaryKnobConfig RotaryMinConfig
 }
 
 // This object contains configuration information for a push button widget.
-$rect <591,659,830,699>
+$rect <841,229,1080,269>
 $output false
 autoobject WidgetSet::PushButtonConfig PushButtonConfig
 {
-  preset IconTintActive = #F6F9FFFF;
-  preset IconTintDefault = #F6F9FFFF;
+  preset IconTintActive = #616365FF;
+  preset IconTintFocused = #292A2BFF;
+  preset IconTintDisabled = #292A2BFF;
+  preset IconTintDefault = #292A2BFF;
   preset FaceLayout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop];
-  preset FaceTintActive = #3D3D3DFF;
-  preset FaceTintDefault = #3D3D3DFF;
+  preset FaceTintActive = #1E1E1EFF;
+  preset FaceTintFocused = #363636FF;
+  preset FaceTintDisabled = #363636FF;
+  preset FaceTintDefault = #363636FF;
   preset FaceFrameActive = 1;
   preset FaceFrameFocused = 0;
   preset FaceFrameDefault = 0;
@@ -851,7 +877,7 @@ autoobject WidgetSet::PushButtonConfig PushButtonConfig
   preset FaceDefault = Res::ButtonFace;
 }
 
-$rect <590,699,830,739>
+$rect <840,269,1080,309>
 $output false
 autoobject WidgetSet::PushButtonConfig NavigationButton
 {
@@ -864,7 +890,7 @@ autoobject WidgetSet::PushButtonConfig NavigationButton
   preset LabelFont = Res::FontBodoniMedium;
   preset FaceTintActive = #E0F5FFFF;
   preset FaceTintDisabled = #FFFFFFFF;
-  preset FaceTintDefault = #F7FFF7FF;
+  preset FaceTintDefault = #E1E6FFFF;
   preset FaceActive = Res::NavigationButtonFace;
   preset FaceDefault = Res::NavigationButtonFace;
 }
@@ -884,23 +910,30 @@ class OnePageMetronom : Core::Group
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
+  }
+
+  $rect <20,20,160,60>
   object WidgetSet::ValueDisplay TempoValue
   {
-    preset Bounds = <11,97,128,129>;
+    preset Bounds = <63,74,144,138>;
     preset Outlet = ^Application::Device.Tempo;
     preset Unit = "";
     preset Precision = 0;
-    preset Appearance = WidgetSet::ValueDisplay_Medium;
+    preset Appearance = Application::ValueDisplay_Medium;
   }
 
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay BeatValue
   {
-    preset Bounds = <291,97,413,129>;
+    preset Bounds = <346,74,416,138>;
     preset Outlet = ^Application::Device.Beat;
     preset Unit = "";
     preset Precision = 0;
-    preset Appearance = WidgetSet::ValueDisplay_Medium;
+    preset Appearance = Application::ValueDisplay_Medium;
   }
 
   $rect <20,20,160,60>
@@ -920,6 +953,9 @@ class OnePageMetronom : Core::Group
   {
     preset Bounds = <23,25,183,185>;
     preset Outlet = ^Application::Device.Tempo;
+    preset StepSize = 5;
+    preset MaxValue = 150;
+    preset MinValue = 30;
     preset Appearance = Application::RotaryMaxConfig;
   }
 
@@ -928,6 +964,8 @@ class OnePageMetronom : Core::Group
   {
     preset Bounds = <301,26,461,186>;
     preset Outlet = ^Application::Device.Beat;
+    preset MaxValue = 8;
+    preset MinValue = 2;
     preset Appearance = Application::RotaryMinConfig;
   }
 
@@ -980,6 +1018,13 @@ class NavigationMetronom : Core::Group
   {
     preset Bounds = <0,0,482,272>;
     preset Bitmap = Res::MetronomeBackground;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
   }
 
   $rect <20,20,160,60>
@@ -1130,6 +1175,13 @@ class NavigationTempo : Core::Group
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
+  }
+
+  $rect <20,20,160,60>
   object Views::Text Text
   {
     preset Bounds = <174,16,291,61>;
@@ -1149,7 +1201,7 @@ class NavigationTempo : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay ValueDisplay
   {
-    preset Bounds = <91,111,291,161>;
+    preset Bounds = <182,126,282,176>;
     preset Outlet = ^Application::Device.Tempo;
     preset Unit = "";
     preset Precision = 0;
@@ -1223,6 +1275,13 @@ class NavigationBeat : Core::Group
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF92;
+  }
+
+  $rect <20,20,160,60>
   object Views::Text Text
   {
     preset Bounds = <190,24,290,54>;
@@ -1242,7 +1301,7 @@ class NavigationBeat : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay ValueDisplay
   {
-    preset Bounds = <97,127,297,159>;
+    preset Bounds = <81,134,281,166>;
     preset Outlet = ^Application::Device.Beat;
     preset Unit = "";
     preset Precision = 0;
@@ -1364,35 +1423,38 @@ class Application : Core::Root
   $rect <500,0,700,40>
   inherited property Bounds = <0,0,480,272>;
 
+  $rect <0,290,200,330>
+  inherited method DriveCursorHitting()
+  {
+    if (( menu != null) && (menu.Bounds != aPos ))
+    {
+      closeMenu();
+    }
+
+    return super( aDown, aFinger, aPos );
+  }
+
   $rect <730,140,930,180>
   slot onOpenMenu
   {
-    // In order to avoid race conditions ignore the push button events if there
-    // is already a menu presented
-    if ( menu != null)
+    // If push button events is already a menu & scrim presented than close them
+    if (menu != null) 
     {
-      AppContainer.DismissDialog(menu, Application::SlideUpCentered, null, null,  null, null, false );
-      AppContainer.DismissDialog(menu.Scrim, Application::SlideUpCentered, null, null,  null, null, false );
-      menu = null;
-     // scrim = null;
+      closeMenu();
       return;
-      }
+    }
 
-    // Create a new instance of the menu component   and a 'scrim' dialog
-
+    // Create a new instance of the menu component and a 'scrim' dialog    
     menu = new Application::SettingsMenu;
-
+    scrim = new Application::Scrim;
 
     menu.OnOpenNavigaton = onNavigation;
-    menu.onOpenSlider    = onSliding;
+    menu.OnOpenSlider    = onSliding;
     menu.OnOpenOnePage   = onOnePage;
 
-
-
-    // ... and present it by using a fade-in transition
-
-    Group.PresentDialog( menu.Scrim, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
-    AppContainer.PresentDialog( menu, Application::SlideDownCentered , null, null, null, null, null, null, null, false );
+    // ... and present dialogs simultaniously   
+    AppContainer.PresentDialog( scrim, Effects::FadeInOutCentered , null, null, null, null, null, null, null, false );  
+    AppContainer.PresentDialog(  menu, Application::SlideDownCentered , null, null, null, null, null, null, null, true);
 
 
   }
@@ -1404,7 +1466,6 @@ class Application : Core::Root
     {
       menu  = null;
     }
-
 
     var Core::Group page = new Application::NavigationMetronom;
 
@@ -1432,18 +1493,19 @@ class Application : Core::Root
   }
 
   $rect <20,20,160,60>
+  object Views::Rectangle TransparentBackg
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Color = #FFFFFF6C;
+  }
+
+  $rect <20,20,160,60>
   object Views::Text Text
   {
     preset Bounds = <109,46,327,180>;
     preset String = "HELLO";
     preset Font = Res::FontBodoniLarge;
     preset Color = #1D729DFF;
-  }
-
-  $rect <20,20,160,60>
-  object Core::Group Group
-  {
-    preset Bounds = <0,0,480,272>;
   }
 
   $rect <20,20,160,60>
@@ -1504,7 +1566,23 @@ class Application : Core::Root
   // Menu navigation
   note group Note1
   {
-    attr Bounds = <500,90,950,330>;
+    attr Bounds = <500,90,950,370>;
+  }
+
+  $rect <520,190,720,230>
+  var Application::Scrim scrim = null;
+
+  $rect <730,310,930,350>
+  method void closeMenu()
+  {
+    // If push button events is already a menu & scrim presented than close them
+    if (menu != null) 
+    {
+      AppContainer.DismissDialog(menu, Application::SlideUpCentered, null, null,  null, null, false );
+      AppContainer.DismissDialog( scrim, Effects::FadeInOutCentered, null, null, null, null, true );
+      menu = null;
+     
+    }
   }
 }
 
@@ -1536,101 +1614,6 @@ class Menu : Templates::Menu
     // The adjust operation takes place in the slot method 'autoResize'.
 
     postsignal autoResize;
-  }
-
-  $rect <250,290,450,330>
-  inherited method UpdateViewState()
-  {
-    // Always invoke the inherited method.
-    super( aState );
-
-    // Determine the new state of the menu.
-    //
-    // isEnabled --> the menu can react to user inputs.
-    // isModal   --> the menu is actually modal (it grabs all user inputs).
-    // isFocused --> the menu can receive keyboard events.
-    //
-    var bool isEnabled = aState.contains( Core::ViewState[ Enabled ]);
-    var bool isModal   = aState.contains( Core::ViewState[ Modal   ]);
-    var bool isFocused = aState.contains( Core::ViewState[ Focused ]);
-
-
-
-    /*
-
-      TO DO:
-
-      Depending on your menu design, you have surely added some new views
-      to your menu. In the below code you should update the properties of
-      these views. For example, when your menu has two images to appear
-      exclusively for a focused or not focused menu, following can be done:
-
-        imageFocused.Visible    =  isFocused;
-        imageNotFocused.Visible = !isFocused;
-
-      Depending on the state of the menu, you can alternate any property 
-      of your views. You can change their visibility, colors, opacity,
-      bitmaps shown in image views, fonts used to render text, the position
-      and the size the view, ...
-       
-
-      HINT:
-
-      Instead of instantly alternate the views properties you can here also
-      start effects to do this with an animation. Important: To decide when
-      to start an effect you should compare the current state of the menu
-      (e.g. 'isFocused') with its preceding state (e.g. variable 'focused').
-
-      Assuming you have already added to your menu component a new effect
-      member, named it 'focusedEffect' and configured it to animate e.g. the
-      opacity of an image within the menu. Then following is sufficient to
-      trigger the animation:
-
-        if ( isFocused && !focused )
-        {
-          focusedEffect.Reversed = false;
-          focusedEffect.Enabled  = true;
-        }
-        else if ( !isPressed && pressed )
-        {
-          focusedEffect.Reversed = true;
-          focusedEffect.Enabled  = true;
-        }
-
-    */
-
-    if ( !isEnabled )
-    {
-      Background.Color  = #A4B5C4C4;
-      Border.Color      = #00000000;
-      Border.Visible    = false;
-      CaptionText.Color = #323232FF;
-    }
-
-    else if ( isFocused )
-    {
-      Background.Color  = #A4B5C4C4;
-      Border.Color      = #00000000;
-      Border.Visible    = false;
-      CaptionText.Color = #323232FF;
-    }
-
-    // Enabled but actually not focused for user interaction.
-    else
-    {
-      Background.Color  = #A4B5C4C4;
-      Border.Color      = #00000000;
-      Border.Visible    = false;
-      CaptionText.Color = #323232FF;
-    }
-
-    // Remember the current state. Next time when the UpdateViewState() is called
-    // you can compare the 'old' state with the 'new' state and perform more
-    // sophisticated update, e.g. you can start an animation effect for the
-    // focused <<-->> not focused transition.
-    enabled = isEnabled;
-    focused = isFocused;
-    modal   = isModal;
   }
 
   // Layout management
@@ -1788,10 +1771,10 @@ class Menu : Templates::Menu
     }
   }
 
-  $rect <330,50,530,90>
+  $rect <310,40,510,80>
   onset Caption
   {
-    // The value doesn't change - nothing to do.
+     // The value doesn't change - nothing to do.
     if ( pure Caption == value )
       return;
 
@@ -1812,8 +1795,12 @@ class Menu : Templates::Menu
   {
     preset Layout = Core::Layout[AlignToRight, AlignToTop];
     preset Bounds = <0,0,300,220>;
-    preset Color = #E0E0E079;
-    preset Bitmap = Res::ItemFace;
+    preset ColorBL = #BBD5E079;
+    preset ColorBR = #A6BDC7DB;
+    preset ColorTR = #BBD5E049;
+    preset ColorTL = #BBD5E0D2;
+    preset Color = #BBD5E079;
+    preset Bitmap = Res::NavigationButtonFace;
     preset Opacity = 230;
   }
 
@@ -1857,11 +1844,11 @@ class Menu : Templates::Menu
     preset Bounds = <10,0,290,40>;
     preset String = "Menu";
     preset Font = Res::FontBodoniSmall;
-    preset Color = #000000FF;
+    preset Color = #141547FF;
   }
 
   // The property 'Caption' stores the text to display within the menu. 
-  $rect <330,10,530,50>
+  $rect <310,0,510,40>
   property string Caption = "Menu";
 }
 
@@ -1964,7 +1951,7 @@ class MenuItem : Templates::MenuItem
     {
       Background.Color  = #FFFFFFFF;
       Border.Visible    = false;
-      CaptionText.Color = #888888FF;
+      CaptionText.Color = #141547FF;
     }
 
     else if ( isPressed )
@@ -1982,7 +1969,7 @@ class MenuItem : Templates::MenuItem
       Border.Color      = #444444FF;
       Border.Visible    = true;
       // Border.Width = 1;
-      CaptionText.Color = #000000FF;
+      CaptionText.Color = #FFFFFFFF;
     }
 
     // Enabled but not pressed nor selected.
@@ -2187,6 +2174,8 @@ class MenuItem : Templates::MenuItem
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
     preset Bounds = <0,0,220,40>;
+    preset ColorBL = #DCDCDCFF;
+    preset ColorBR = #C7C7C7FF;
     preset Color = #E6E6E6FF;
     preset Bitmap = Res::ItemFace;
   }
@@ -2248,7 +2237,7 @@ class SettingsMenu : Application::Menu
   inherited object Background
   {
     preset Bounds = <0,0,282,200>;
-    preset Color = #FF00C7FE;
+    preset Color = #92BFFFFE;
     preset Embedded = false;
     preset Visible = true;
   }
@@ -2301,49 +2290,46 @@ class SettingsMenu : Application::Menu
   object Application::MenuItem Slider
   {
     preset Bounds = <27,140,247,180>;
-    preset OnActivate = onSlider;
+    preset OnActivate = onSliding;
     preset Caption = "Slider";
   }
 
-  $rect <250,290,450,330>
+  $rect <220,290,420,330>
   slot onOnePage
   {
     signal OnOpenOnePage;
   }
 
-  $rect <250,390,450,430>
+  $rect <220,330,420,370>
   slot onNavigation
   {
     signal OnOpenNavigaton;
 
   }
 
-  $rect <250,340,450,380>
-  slot onSlider
+  $rect <220,370,420,410>
+  slot onSliding
   {
-    signal onOpenSlider;
+    signal OnOpenSlider;
   }
 
-  $rect <20,340,220,380>
+  $rect <10,330,210,370>
   property slot OnOpenNavigaton;
 
-  $rect <20,390,220,430>
-  property slot onOpenSlider;
+  $rect <10,370,210,410>
+  property slot OnOpenSlider;
 
-  $rect <20,290,220,330>
+  $rect <10,290,210,330>
   property slot OnOpenOnePage;
 
   // Touch screen events
   note group Note
   {
-    attr Bounds = <0,250,490,480>;
+    attr Bounds = <0,248,440,478>;
   }
-
-  $rect <20,440,220,480>
-  var Application::Scrim Scrim;
 }
 
-$rect <590,740,830,780>
+$rect <840,310,1080,350>
 $output false
 autoobject WidgetSet::PushButtonConfig MenuButtonConfig
 {
@@ -2352,7 +2338,7 @@ autoobject WidgetSet::PushButtonConfig MenuButtonConfig
   preset IconTintActive = #6F6F6FFF;
   preset IconTintDefault = #000000FF;
   preset IconAlignment = Views::ImageAlignment[AlignHorzCenter, AlignVertCenter];
-  preset FaceTintActive = #414141FF;
+  preset FaceTintActive = #8A8A8AFF;
   preset FaceTintDefault = #000000FF;
 }
 
@@ -2381,6 +2367,7 @@ autoobject Effects::SlideTransition SlideUpCentered
   preset MarginLeft = 15;
   preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
   preset Duration = 600;
+  preset Direction = Core::Direction.Top;
 }
 
 // The global autoobject Application::SlideDownCentered represents the fade-in/out \
@@ -2407,7 +2394,7 @@ autoobject Effects::SlideTransition SlideDownCentered
   preset MarginLeft = 15;
   preset Alignment = Effects::DialogAlignment[AlignHorzLeft, AlignVertTop];
   preset Duration = 600;
-  preset Direction = Core::Direction.None;
+  preset Direction = Core::Direction.Bottom;
 }
 
 // Effects
@@ -2419,10 +2406,10 @@ note group Note3
 // WidgetSet
 note group Note4
 {
-  attr Bounds = <810,0,1110,290>;
+  attr Bounds = <810,0,1110,500>;
 }
 
-$rect <270,330,470,370>
+$rect <280,240,480,280>
 $output false
 class Scrim : Core::Group
 {
@@ -2433,6 +2420,47 @@ class Scrim : Core::Group
   object Views::Rectangle Rectangle
   {
     preset Bounds = <0,0,480,272>;
-    preset Color = #DCDCDC8C;
+    preset Color = #C7D0E066;
   }
+
+  $rect <490,40,690,80>
+  property slot OnScreenTouch;
+
+  $rect <690,40,890,80>
+  slot onScreenTouch
+  {
+    signal OnScreenTouch;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <480,0>;
+    preset Point2 = <480,272>;
+    preset Point1 = <0,272>;
+    preset OnPress = onScreenTouch;
+    preset RetargetDelay = 300;
+  }
+}
+
+// This autoobject provides the default customization for the 'value display' widget \
+// (WidgetSet::ValueDisplay) in its medium size variant. Widgets using this configuration \
+// display the value and unit aligned at the right widget edge.
+$rect <840,350,1090,390>
+$output false
+autoobject WidgetSet::ValueDisplayConfig ValueDisplay_Medium
+{
+  preset ValueMarginRight = 10;
+  preset ValueColorNegative = #A7A9ACFF;
+  preset ValueColorPositive = #A7A9ACFF;
+  preset ValueAlignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+  preset ValueFont = Resources::FontLarge;
+  preset UnitColorNegative = #C4C6C9FF;
+  preset UnitColorPositive = #C4C6C9FF;
+  preset UnitAlignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+  preset UnitFont = Resources::FontLarge;
+  preset FormatPlusSign = "";
+  preset Layout = WidgetSet::ValueDisplayLayout.AlignValueLeftToUnit;
+  preset WidgetMinSize = <60,32>;
 }

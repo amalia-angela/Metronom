@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application::Application;
+attr active = Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,19>;
-attr codeInspector = Application::Application.onOpenMenu;
-attr codeSelEnd = <31,24>;
-attr codeSelStart = <31,24>;
+attr codeFirstPos = <0,27>;
+attr codeInspector = WidgetSet::ValueDisplay.UpdateViewState;
+attr codeSelEnd = <44,37>;
+attr codeSelStart = <44,37>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -44,28 +44,40 @@ view unit Application
   attr zoom = 1.0;
 }
 
-view class Application::Scrim
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
 view class Application::Application
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,19>;
-  attr codeInspector = onOpenMenu;
-  attr codeSelEnd = <31,24>;
-  attr codeSelStart = <31,24>;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onNavigation;
+  attr codeSelEnd = <0,4>;
+  attr codeSelStart = <0,4>;
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
-view class Application::SettingsMenu
+view class Application::OnePageMetronom
 {
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class WidgetSet::ValueDisplay
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,27>;
+  attr codeInspector = UpdateViewState;
+  attr codeSelEnd = <44,37>;
+  attr codeSelStart = <44,37>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,41>;
+  attr zoom = 1.0;
+}
+
+view unit WidgetSet
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,243>;
   attr zoom = 1.0;
 }
