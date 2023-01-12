@@ -919,22 +919,21 @@ class OnePageMetronom : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay TempoValue
   {
-    preset Bounds = <11,97,128,129>;
+    preset Bounds = <63,74,144,138>;
     preset Outlet = ^Application::Device.Tempo;
     preset Unit = "";
     preset Precision = 0;
-    preset Appearance = WidgetSet::ValueDisplay_Medium;
+    preset Appearance = Application::ValueDisplay_Medium;
   }
 
   $rect <20,20,160,60>
   object WidgetSet::ValueDisplay BeatValue
   {
-    preset Layout = Core::Layout[];
-    preset Bounds = <339,71,423,139>;
+    preset Bounds = <346,74,416,138>;
     preset Outlet = ^Application::Device.Beat;
     preset Unit = "";
     preset Precision = 0;
-    preset Appearance = WidgetSet::ValueDisplay_Medium;
+    preset Appearance = Application::ValueDisplay_Medium;
   }
 
   $rect <20,20,160,60>
@@ -2443,4 +2442,25 @@ class Scrim : Core::Group
     preset OnPress = onScreenTouch;
     preset RetargetDelay = 300;
   }
+}
+
+// This autoobject provides the default customization for the 'value display' widget \
+// (WidgetSet::ValueDisplay) in its medium size variant. Widgets using this configuration \
+// display the value and unit aligned at the right widget edge.
+$rect <840,350,1090,390>
+$output false
+autoobject WidgetSet::ValueDisplayConfig ValueDisplay_Medium
+{
+  preset ValueMarginRight = 10;
+  preset ValueColorNegative = #A7A9ACFF;
+  preset ValueColorPositive = #A7A9ACFF;
+  preset ValueAlignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+  preset ValueFont = Resources::FontLarge;
+  preset UnitColorNegative = #C4C6C9FF;
+  preset UnitColorPositive = #C4C6C9FF;
+  preset UnitAlignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+  preset UnitFont = Resources::FontLarge;
+  preset FormatPlusSign = "";
+  preset Layout = WidgetSet::ValueDisplayLayout.AlignValueLeftToUnit;
+  preset WidgetMinSize = <60,32>;
 }

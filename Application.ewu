@@ -1,4 +1,4 @@
-﻿$version 11.00
+﻿$version 12.00
 
 $rect <80,410,250,450>
 $output false
@@ -71,6 +71,18 @@ class SlidingTempo : Core::Group
     preset MinValue = 30;
     preset Appearance = Application::MyHorizontalSliderConfig;
   }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <430,222,480,272>;
+    preset ColorBL = #909090FF;
+    preset ColorBR = #FFFFFFFF;
+    preset ColorTL = #858585FF;
+    preset Color = #D3D3D3FF;
+    preset FrameNumber = 3;
+    preset Bitmap = Resources::NavigationIconsMedium;
+  }
 }
 
 $rect <80,370,250,410>
@@ -142,6 +154,18 @@ class SlidingBeat : Core::Group
     preset MinValue = 2;
     preset Appearance = Application::MyVerticalSliderConfig;
   }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <0,223,50,273>;
+    preset ColorBL = #FFFFFFFF;
+    preset ColorBR = #BDBDBDFF;
+    preset ColorTL = #CECECEFF;
+    preset Color = #767676FF;
+    preset FrameNumber = 2;
+    preset Bitmap = Resources::NavigationIconsMedium;
+  }
 }
 
 $rect <80,330,250,370>
@@ -169,7 +193,7 @@ class SlidingMain : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton StartStop
   {
-    preset Bounds = <205,86,275,156>;
+    preset Bounds = <205,78,275,148>;
     preset Visible = true;
     preset OnActivate = onStartPress;
     preset Icon = Res::PlayIcon;
@@ -227,7 +251,7 @@ class SlidingMain : Core::Group
   $rect <20,20,160,60>
   object Views::Text BeatTxt
   {
-    preset Bounds = <36,207,154,237>;
+    preset Bounds = <32,207,150,237>;
     preset ColorBL = #3A61D4FF;
     preset String = "TEMPO";
     preset Font = Res::FontBodoniLarge;
@@ -238,7 +262,7 @@ class SlidingMain : Core::Group
   $rect <20,20,160,60>
   object Views::Text TempoTxt
   {
-    preset Bounds = <342,207,442,237>;
+    preset Bounds = <353,207,453,237>;
     preset String = "BEAT";
     preset Font = Res::FontBodoniLarge;
     preset Color = #3A61D4FF;
@@ -249,6 +273,30 @@ class SlidingMain : Core::Group
   note group Note
   {
     attr Bounds = <10,310,260,510>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <430,197,480,247>;
+    preset ColorBL = #FAFAFAFF;
+    preset ColorBR = #F5F5F5FF;
+    preset ColorTL = #474747FF;
+    preset Color = #6C6C6CFF;
+    preset FrameNumber = 3;
+    preset Bitmap = Resources::NavigationIconsMedium;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <0,197,50,247>;
+    preset ColorBL = #FAFAFAFF;
+    preset ColorBR = #F5F5F5FF;
+    preset ColorTL = #474747FF;
+    preset Color = #6C6C6CFF;
+    preset FrameNumber = 2;
+    preset Bitmap = Resources::NavigationIconsMedium;
   }
 }
 
@@ -1502,7 +1550,7 @@ class Application : Core::Root
   $rect <20,20,160,60>
   object Views::Text Text
   {
-    preset Bounds = <109,46,327,180>;
+    preset Bounds = <131,69,349,203>;
     preset String = "HELLO";
     preset Font = Res::FontBodoniLarge;
     preset Color = #1D729DFF;
@@ -1843,8 +1891,8 @@ class Menu : Templates::Menu
     preset Layout = Core::Layout[AlignToLeft, AlignToRight, AlignToTop, ResizeHorz];
     preset Bounds = <10,0,290,40>;
     preset String = "Menu";
-    preset Font = Res::FontBodoniSmall;
-    preset Color = #141547FF;
+    preset Font = Res::FontBodoniMedium;
+    preset Color = #1840A3FF;
   }
 
   // The property 'Caption' stores the text to display within the menu. 
@@ -1889,87 +1937,38 @@ class MenuItem : Templates::MenuItem
   $rect <710,190,910,230>
   inherited method UpdateViewState()
   {
-    // Always invoke the inherited method.
+
     super( aState );
 
-    // Determine the new state of the item.
-    //
-    // isEnabled  --> the item can react to user inputs.
-    // isSelected --> the item can receive keyboard events.
-    // isPressed  --> the item should appear pressed.
-    //
     var bool isEnabled  = aState.contains( Core::ViewState[ Enabled  ]);
     var bool isSelected = aState.contains( Core::ViewState[ Selected ]);
     var bool isPressed  = ( TouchHandler.Down && TouchHandler.Inside ) || 
                             FlashTimer.Enabled;
 
-    /*
-
-      TO DO:
-
-      Depending on your item design, you have surely added some new views
-      to your item. In the below code you should update the properties of
-      these views. For example, when your item has two images to appear
-      exclusively for released and pressed item state, following can be
-      done:
-
-        imagePressed.Visible  =  isPressed;
-        imageReleased.Visible = !isPressed;
-
-      Depending on the state of the item, you can alternate any property 
-      of your views. You can change their visibility, colors, opacity,
-      bitmaps shown in image views, fonts used to render text, the position
-      and the size the view, ...
-       
-
-      HINT:
-
-      Instead of instantly alternate the views properties you can here also
-      start effects to do this with an animation. Important: To decide when
-      to start an effect you should compare the current state of the item
-      (e.g. 'isPressed') with its preceding state (e.g. variable 'pressed').
-
-      Assuming you have already added to your item component a new effect
-      member, named it 'pressedEffect' and configured it to animate e.g. the
-      opacity of an image within the item. Then following is sufficient to
-      trigger the animation:
-
-        if ( isPressed && !pressed )
-        {
-          pressedEffect.Reversed = false;
-          pressedEffect.Enabled  = true;
-        }
-        else if ( !isPressed && pressed )
-        {
-          pressedEffect.Reversed = true;
-          pressedEffect.Enabled  = true;
-        }
-
-    */
 
     if ( !isEnabled )
     {
       Background.Color  = #FFFFFFFF;
       Border.Visible    = false;
-      CaptionText.Color = #141547FF;
+      CaptionText.Color = #1840A3FF;
     }
 
     else if ( isPressed )
     {
-      Background.Color  = #9BBDDEC1;
-      Border.Color      = #000000FF;
+      Background.Color  = #FFFFFFFF;
+      Border.Color      = #E0F5FFFF;
       Border.Visible    = true;
       //Border.Width = 1;
-      CaptionText.Color = #FFFFFFFF;
+      CaptionText.Color = #1840A3FF;
     }
 
     else if ( isSelected )
     {
-      Background.Color  = #D5EBFFFF;
-      Border.Color      = #444444FF;
+      Background.Color  = #FFFFFFFF;
+      Border.Color      = #E1E6FFFF;
       Border.Visible    = true;
       // Border.Width = 1;
-      CaptionText.Color = #FFFFFFFF;
+      CaptionText.Color = #1840A3FF;
     }
 
     // Enabled but not pressed nor selected.
@@ -1977,13 +1976,9 @@ class MenuItem : Templates::MenuItem
     {
       Background.Color  = #FFFFFFFF;
       Border.Visible    = false;
-      CaptionText.Color = #000000FF;
+      CaptionText.Color = #1840A3FF;
     }
 
-    // Remember the current state. Next time when the UpdateViewState() is called
-    // you can compare the 'old' state with the 'new' state and perform more
-    // sophisticated update, e.g. you can start an animation effect for the
-    // pressed <<-->> not pressed transition.
     enabled  = isEnabled;
     selected = isSelected;
     pressed  = isPressed;
@@ -2215,7 +2210,7 @@ class MenuItem : Templates::MenuItem
     preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
     preset String = "Caption";
     preset Font = Res::FontBodoniSmall;
-    preset Color = #000000FF;
+    preset Color = #202020FF;
   }
 
   // The property 'OnActivate' can refer to a slot method, which will receive a signal \
@@ -2266,6 +2261,7 @@ class SettingsMenu : Application::Menu
   {
     preset Bounds = <10,0,267,40>;
     preset String = "Style";
+    preset Color = #202020FF;
     preset Opacity = 255;
   }
 
@@ -2406,7 +2402,7 @@ note group Note3
 // WidgetSet
 note group Note4
 {
-  attr Bounds = <810,0,1110,500>;
+  attr Bounds = <810,0,1110,490>;
 }
 
 $rect <280,240,480,280>
