@@ -4,5 +4,6 @@ The Metronom UI is created in Embedded wizard, programming language Chora.
 
 
 
-https://user-images.githubusercontent.com/79534873/213404603-75890659-cf9d-406f-96cd-ff5f89731bc1.mov
+https://user-images.githubusercontent.com/79534873/214818184-c2307547-4f69-4389-8508-375802fed606.mov
+
 
