@@ -1,8 +1,8 @@
-https://img.shields.io/github/contributors/amalia-angela/Metronom?style=for-the-badge
-https://img.shields.io/github/forks/amalia-angela/Metronom?color=gree&style=for-the-badge
-https://img.shields.io/github/stars/amalia-angela/Metronom?color=yellow&style=for-the-badge
-https://img.shields.io/github/watchers/amalia-angela/Metronom?color=red&style=for-the-badge
-https://img.shields.io/github/repo-size/amalia-angela/Metronom?color=purple&style=for-the-badge
+![GitHub contributors](https://img.shields.io/github/contributors/amalia-angela/Metronom?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/amalia-angela/Metronom?color=gree&style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/amalia-angela/Metronom?color=yellow&style=for-the-badge)
+![GitHub watchers](https://img.shields.io/github/watchers/amalia-angela/Metronom?color=red&style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/repo-size/amalia-angela/Metronom?color=purple&style=for-the-badge)
 # Metronom
 The Metronom UI is created in Embedded wizard, programming language Chora.
 
